@@ -20,6 +20,7 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
+        // testi muokkaus
     }
    //testiiiiiiiiiiiiiiiiiiiiiiii
 }
