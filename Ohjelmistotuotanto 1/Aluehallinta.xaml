@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ohjelmistotuotanto_1.Aluehallinta"
+             Title="Aluehallinta">
+    <Grid RowSpacing="10" Padding="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!-- lista sql tiedostosta -->
+        <ListView x:Name="AlueSQLLista" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemSelected="AlueSQLLista_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate></DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Entry Grid.Row="3" Grid.Column="1" x:Name="ItemEntry" Placeholder="Kirjoita jotain..." />
+
+        <Button x:Name="Lisaa" Grid.Row="4" Grid.Column="1" Text="Lisää" Clicked="Lisaa_Clicked"/>
+        
+        <Entry Placeholder="Valittu asia" Grid.Column="1" Grid.Row="1"/>
+        <!--Napit tietojen muokkaamiseen ja poistamiseen-->
+        
+        <StackLayout Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <Button Text="Muokkaa" x:Name="Muokkaa" Clicked="Muokkaa_Clicked" />
+            <Button Text="Poista"  x:Name="Poista" Clicked="Poista_Clicked" />
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>

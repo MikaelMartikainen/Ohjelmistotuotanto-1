@@ -9,7 +9,13 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            //  pääsivuksi
+            return new Window(new MainPage());
+            // Aluehallinta
+            //return new Window(new Aluehallinta());
+            //aluehallinta v2
+            //return new Window(new Aluehallintav2());
+
         }
     }
 }

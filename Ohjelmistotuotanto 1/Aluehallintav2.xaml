@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ohjelmistotuotanto_1.Aluehallintav2"
+             Title="Aluehallintav2">
+    <Grid RowSpacing="10" Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+            <!-- lista sql tiedostosta -->
+        <ListView x:Name="AlueSQLLista" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" ItemSelected="AlueSQLLista_ItemSelected" >
+            <ListView.ItemTemplate>
+                <DataTemplate></DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Label x:Name="AlueLabel" Text="Alue" Grid.Row="3" Grid.Column="0" HorizontalOptions="Center"  />
+
+        <Entry x:Name="AlueEntry" Grid.Row="3" Grid.Column="1" Placeholder="" />
+
+        <Button x:Name="LisaaNappi" Grid.Row="3" Grid.Column="2" Text="Lisää" Clicked="LisaaNappi_Clicked"/>
+
+        <Button x:Name="MuokkaaNappi" Grid.Row="3" Grid.Column="3"  Text="Muokkaa" Clicked="MuokkaaNappi_Clicked"/>
+
+        <Button x:Name="PoistaNappi"  Grid.Row="3" Grid.Column="4" Text="Poista" Clicked="PoistaNappi_Clicked"/>
+
+    </Grid>
+</ContentPage>
