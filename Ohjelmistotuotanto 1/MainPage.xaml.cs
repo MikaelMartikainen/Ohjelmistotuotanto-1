@@ -1,26 +1,54 @@
-﻿namespace Ohjelmistotuotanto_1
+﻿using System;
+using Microsoft.Maui.Controls;
+
+namespace Ohjelmistotuotanto_1
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnAlueidenHallintaClicked(object sender, EventArgs e)
         {
-            count++;
+            await Navigation.PushAsync(new Aluehallintav2());
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
         }
-        // testi muokkaus
+
+        private async void OnPalveluidenHallintaClicked(object sender, EventArgs e)
+        {
+           
+        }
+
+        private async void OnMokkivarauksetClicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        private async void OnAsiakashallintaClicked(object sender, EventArgs e)
+        {
+        
+        }
+
+        private async void OnLaskujenHallintaClicked(object sender, EventArgs e)
+        {
+          
+        }
+
+        private async void OnMajoittumisetAlueittainClicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        private async void OnMajoittumistenRaportointiClicked(object sender, EventArgs e)
+        {
+         
+        }
+
+        private async void OnOstetutPalvelutClicked(object sender, EventArgs e)
+        {
+           
+        }
     }
-   //testiiiiiiiiiiiiiiiiiiiiiiiisssssssssssssssssssssssssssssssffffffffffffffffffffffffggggggggggggggggggggggggg
 }
