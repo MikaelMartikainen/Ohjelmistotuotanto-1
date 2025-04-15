@@ -21,8 +21,17 @@ public partial class Aluehallintav2 : ContentPage
     {
 
     }
+    private void HaeNappi_Clicked(object sender, EventArgs e)
+    {
+
+    }
 
     private void AlueSQLLista_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+
+    }
+
+    private void NotesCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
     }

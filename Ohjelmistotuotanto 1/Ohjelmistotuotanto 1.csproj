@@ -65,9 +65,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Aluehallinta.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Aluehallintav2.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

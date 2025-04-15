@@ -3,39 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ohjelmistotuotanto_1.Aluehallintav2"
              Title="Aluehallintav2">
-    <Grid RowSpacing="10" Padding="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-            <!-- lista sql tiedostosta -->
-        <ListView x:Name="AlueSQLLista" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" ItemSelected="AlueSQLLista_ItemSelected" >
-            <ListView.ItemTemplate>
-                <DataTemplate></DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+    <VerticalStackLayout Padding="20" Spacing="15">
 
-        <Label x:Name="AlueLabel" Text="Alue" Grid.Row="3" Grid.Column="0" HorizontalOptions="Center"  />
 
-        <Entry x:Name="AlueEntry" Grid.Row="3" Grid.Column="1" Placeholder="" />
 
-        <Button x:Name="LisaaNappi" Grid.Row="3" Grid.Column="2" Text="Lisää" Clicked="LisaaNappi_Clicked"/>
+        <Label Text="Alueet" FontAttributes="Bold" Margin="0,10,0,0"/>
 
-        <Button x:Name="MuokkaaNappi" Grid.Row="3" Grid.Column="3"  Text="Muokkaa" Clicked="MuokkaaNappi_Clicked"/>
+       
+        <Border Stroke="DarkGray"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 8"
+                Padding="5"
+                Margin="0,0,0,20"
+                VerticalOptions="FillAndExpand">
 
-        <Button x:Name="PoistaNappi"  Grid.Row="3" Grid.Column="4" Text="Poista" Clicked="PoistaNappi_Clicked"/>
-
-    </Grid>
+            <CollectionView x:Name="AlueCollectionView"
+                            SelectionMode="Single"
+                            SelectionChanged="NotesCollectionView_SelectionChanged"
+                            VerticalOptions="FillAndExpand"
+                            HeightRequest="300">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
+                            <Label Text="{Binding nimi}" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+            <Label Text="Alue"/>
+        <Entry x:Name="AlueEntry" Placeholder="Alue nimi" />
+        <HorizontalStackLayout Spacing="10">
+            
+            
+            <Button Text="Lisää" Clicked="LisaaNappi_Clicked"/>
+            <Button Text="Muokkaa" Clicked="MuokkaaNappi_Clicked"/>
+            <Button Text="Poista" Clicked="PoistaNappi_Clicked"/>
+            <Button Text="Hae" Clicked="HaeNappi_Clicked"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
 </ContentPage>
+    
