@@ -34,12 +34,12 @@
             <Label Text="Alue"/>
         <Entry x:Name="AlueEntry" Placeholder="Alue nimi" />
         <HorizontalStackLayout Spacing="10">
-            
-            
+            <SearchBar Placeholder="Alue" SearchButtonPressed="HaeNappi_Clicked" />
             <Button Text="Lisää" Clicked="LisaaNappi_Clicked"/>
             <Button Text="Muokkaa" Clicked="MuokkaaNappi_Clicked"/>
             <Button Text="Poista" Clicked="PoistaNappi_Clicked"/>
-            <Button Text="Hae" Clicked="HaeNappi_Clicked"/>
+
+            
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
