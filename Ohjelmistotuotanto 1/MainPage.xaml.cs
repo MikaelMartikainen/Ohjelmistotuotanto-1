@@ -18,22 +18,22 @@ namespace Ohjelmistotuotanto_1
 
         private async void OnPalveluidenHallintaClicked(object sender, EventArgs e)
         {
-           
+            await Navigation.PushAsync(new PalveluidenHallinta());
         }
 
         private async void OnMokkivarauksetClicked(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new MokkiHallinta());
         }
 
         private async void OnAsiakashallintaClicked(object sender, EventArgs e)
         {
-        
+            await Navigation.PushAsync(new AsiakasHallinta());
         }
 
         private async void OnLaskujenHallintaClicked(object sender, EventArgs e)
         {
-          
+            
         }
 
         private async void OnMajoittumisetAlueittainClicked(object sender, EventArgs e)

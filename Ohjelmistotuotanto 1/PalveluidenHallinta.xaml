@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ohjelmistotuotanto_1.PalveluidenHallinta"
+             Title="PalveluidenHallinta">
+    <StackLayout>
+
+        <Border Stroke="DarkGray"
+                   StrokeThickness="1"
+                   StrokeShape="RoundRectangle 8"
+                   Padding="5"
+                   Margin="0,0,0,20"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.RowSpan="4"
+                   Grid.ColumnSpan="6">
+
+            <CollectionView x:Name="PalveluCollectionView"
+                               SelectionMode="Single"
+                               SelectionChanged="PalveluCollectionView_SelectionChanged"
+                               HeightRequest="300">
+                <!-- Tähän kiinnitä SQL -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
+                            <Label Text="{Binding Palvelut}" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="6*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <Label Text="Palvelun nimi" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+            <Entry x:Name="PalveluEntry" Placeholder="Palvelu" Grid.Column="1" Grid.Row="4"></Entry>
+            <SearchBar x:Name="PalveluNimiSB" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="PalveluNimiSB_SearchButtonPressed"></SearchBar>
+            <Button x:Name="LisaaPalveluNappi" Text="Lisää" Grid.Column="3" Grid.Row="4" Clicked="LisaaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2">
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                               Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                               Value="0.9" />
+                                    <Setter Property="Opacity"
+                                   Value="0.9"
+                                     />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Button x:Name="MuokkaaPalveluNappi" Text="Muokkaa" Grid.Column="4" Grid.Row="4" Clicked="MuokkaaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2" >
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                               Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                               Value="0.9" />
+                                    <Setter Property="Opacity"
+                                   Value="0.9"
+                                     />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Button x:Name="PoistaPalveluNappi" Text ="Poista" Grid.Column="5" Grid.Row="4" Clicked="PoistaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2">
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                               Value="1" />
+                                    <Setter Property="Opacity"
+                                            Value="1"
+                                                   />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                               Value="0.9"
+                                   />
+                                    <Setter Property="Opacity"
+                                   Value="0.9"
+                                     />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
+            <!--Kuvaus-->
+            <Label Text="Kuvaus" Grid.Column="0" Grid.Row="5" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+            <Entry x:Name="KuvausEntry" Placeholder="Kuvaus" Grid.Column="1" Grid.Row="5"></Entry>
+            <SearchBar x:Name="KuvausSB" Grid.Column="2" Grid.Row="5 " SearchButtonPressed="KuvausSB_SearchButtonPressed"></SearchBar>
+
+            <!--Hinta -->
+            <Label Text="Hinta" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+            <Entry x:Name="HintaEntry" Placeholder="0" Grid.Column="1" Grid.Row="6"></Entry>
+            <SearchBar x:Name="HintaSB" Grid.Column="2" Grid.Row="6 " SearchButtonPressed="HintaSB_SearchButtonPressed"></SearchBar>
+
+            <!--alv-->
+            <Label Text="alv" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+            <Entry x:Name="alvEntry" Placeholder="Kuvaus..." Grid.Column="1" Grid.Row="7"></Entry>
+            <SearchBar x:Name="alvSB" Grid.Column="2" Grid.Row="7 " SearchButtonPressed="alvSB_SearchButtonPressed"></SearchBar>
+
+            <!--AlueID-->
+            <Label Text="AlueID" Grid.Column="0" Grid.Row="11" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+            <Entry x:Name="AlueIDEntry" Placeholder="1" Grid.Column="1" Grid.Row="11"></Entry>
+            <SearchBar x:Name="AlueIDSB" Grid.Column="2" Grid.Row="11 " SearchButtonPressed="AlueIDSB_SearchButtonPressed"></SearchBar>
+
+            <!--Alueet ja niiden ID-->
+            <Border Stroke="DarkGray"
+           StrokeThickness="1"
+               StrokeShape="RoundRectangle 8"
+               Padding="5"
+                Margin="0,0,0,20"
+               Grid.Column="0"
+               Grid.Row="12"
+               Grid.RowSpan="2"
+               Grid.ColumnSpan="3">
+
+
+                <CollectionView x:Name="AlueCollectionView"
+                    SelectionMode="Single"
+                    SelectionChanged="AlueCollectionView_SelectionChanged"
+                    HeightRequest="300">
+                    <!-- Tähän kiinnitä SQL -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
+                                <Label Text="{Binding Alue}" />
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+        </Grid>
+        </StackLayout>
+</ContentPage>

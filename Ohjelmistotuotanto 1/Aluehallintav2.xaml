@@ -22,6 +22,7 @@
                             SelectionChanged="NotesCollectionView_SelectionChanged"
                             VerticalOptions="FillAndExpand"
                             HeightRequest="300">
+                <!--Tähän kiinnitä sQL-->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
@@ -30,6 +31,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
         </Border>
             <Label Text="Alue"/>
         <Entry x:Name="AlueEntry" Placeholder="Alue nimi" />
