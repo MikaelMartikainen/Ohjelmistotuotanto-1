@@ -43,7 +43,7 @@ namespace Ohjelmistotuotanto_1
 
         private async void OnMajoittumistenRaportointiClicked(object sender, EventArgs e)
         {
-         
+            await Navigation.PushAsync(new Varaushallinta());
         }
 
         private async void OnOstetutPalvelutClicked(object sender, EventArgs e)

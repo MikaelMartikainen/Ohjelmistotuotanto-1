@@ -72,7 +72,7 @@
                     Clicked="OnMajoittumistenRaportointiClicked"/>
 
             <Button Grid.Row="3" Grid.Column="0"
-                    Text="Majoittumisten raportointi"
+                    Text="Varaus Hallinta"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
