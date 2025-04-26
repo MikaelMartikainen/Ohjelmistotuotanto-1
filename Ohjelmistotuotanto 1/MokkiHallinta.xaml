@@ -22,17 +22,15 @@
                     <!-- Tähän kiinnitä SQL -->
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                        
-                    </DataTemplate>
+                            <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
+                                <Label Text="{Binding Mökit}" />
+                            </Frame>
+                        </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Border>
-
-        <Frame x:Name="MokkiFrame" BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-            <StackLayout x:Name="MokkiLayout" />
-        </Frame>
-
-
+  
+          
         <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -54,19 +52,18 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-            <!--Mökin nimi-->
-            <Label Text="Mökin nimi " Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="MokkinimiEntry" Placeholder="Metsä mökki" Grid.Column="1" Grid.Row="4"></Entry>
-            <SearchBar x:Name="MokkinimiSB" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="MokkinimiSB_SearchButtonPressed"></SearchBar>
 
-            <Button x:Name="LisaaMokkiNappi" Text="Lisää" Grid.Column="3" Grid.Row="4" Clicked="LisaaMokkiNappi_Clicked" BorderColor="Black" BorderWidth="2">
-                <!--tekee hienoja asioita kun nappia painetaan-->
+        <Label Text="Mökin nimi " Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+        <Entry x:Name="MokkinimiEntry" Placeholder="Metsä mökki" Grid.Column="1" Grid.Row="4"></Entry>
+        <SearchBar x:Name="MokkinimiSB" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="MokkinimiSB_SearchButtonPressed"></SearchBar>
+        <Button x:Name="LisaaMokkiNappi" Text="Lisää" Grid.Column="3" Grid.Row="4" Clicked="LisaaMokkiNappi_Clicked" BorderColor="Black" BorderWidth="2">
+            <!--tekee hienoja asioita kun nappia painetaan-->
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
@@ -153,7 +150,7 @@
 
             <!--Hinta -->
             <Label Text="Hinta" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="HintaEntry" TextChanged="HintaUpdate" Placeholder="0" Grid.Column="1" Grid.Row="6"/>
+            <Entry x:Name="HintaEntry" Placeholder="0" Grid.Column="1" Grid.Row="6"></Entry>
             <SearchBar x:Name="HintaSB" Grid.Column="2" Grid.Row="6 " SearchButtonPressed="HintaSB_SearchButtonPressed"></SearchBar>
 
 
@@ -162,31 +159,26 @@
             <Entry x:Name="KuvausEntry" Placeholder="Kuvaus..." Grid.Column="1" Grid.Row="7"></Entry>
             <SearchBar x:Name="KuvausSB" Grid.Column="2" Grid.Row="7 " SearchButtonPressed="KuvausSB_SearchButtonPressed"></SearchBar>
             
-            
             <!--Henkilomäärä-->
             <Label Text="Henkilö Määrä" Grid.Column="0" Grid.Row="8" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="HenkiloMaaraEntry" Placeholder="0" Grid.Column="1" Grid.Row="8"></Entry>
             <SearchBar x:Name="HenkiloMaaraSB" Grid.Column="2" Grid.Row="8" SearchButtonPressed="HenkiloMaaraSB_SearchButtonPressed"></SearchBar>
-
-
-            <!--Varustelu-->
+            
+            <!--Henkilomäärä-->
             <Label Text="Varustelu" Grid.Column="0" Grid.Row="9" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="VarusteluEntry" Placeholder="Tuolit..." Grid.Column="1" Grid.Row="9"></Entry>
             <SearchBar x:Name="VarusteluSB" Grid.Column="2" Grid.Row="9" SearchButtonPressed="VarusteluSB_SearchButtonPressed"></SearchBar>
 
-            
             <!--Postinumero-->
             <Label Text="Postinumero" Grid.Column="0" Grid.Row="10" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="PostinumeroEntry" Placeholder="00000" Grid.Column="1" Grid.Row="10"></Entry>
             <SearchBar x:Name="PostinumeroSB" Grid.Column="2" Grid.Row="10 " SearchButtonPressed="PostinumeroSB_SearchButtonPressed"></SearchBar>
 
-            
             <!--AlueID-->
             <Label Text="AlueID" Grid.Column="0" Grid.Row="11" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="AlueIDEntry" Placeholder="1" Grid.Column="1" Grid.Row="11"></Entry>
             <SearchBar x:Name="AlueIDSB" Grid.Column="2" Grid.Row="11 " SearchButtonPressed="AlueIDSB_SearchButtonPressed"></SearchBar>
 
-            
             <!--Alueet ja niiden ID-->
             <Border Stroke="DarkGray"
             StrokeThickness="1"

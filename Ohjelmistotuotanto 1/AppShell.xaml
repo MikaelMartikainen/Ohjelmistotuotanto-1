@@ -5,11 +5,46 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Ohjelmistotuotanto_1"
     Shell.FlyoutBehavior="Flyout"
-    Title="Ohjelmistotuotanto_1">
+    Title="Village Newbies">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Main Menu" Icon="dotnet_bot.png">
+        <ShellContent
+            Title="Dashboard"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Management" Icon="dotnet_bot.png">
+        <Tab Title="Areas">
+            <ShellContent 
+                Title="Area Management"
+                ContentTemplate="{DataTemplate local:Aluehallintav2}"
+                Route="Aluehallintav2" />
+        </Tab>
+        <Tab Title="Services">
+            <ShellContent 
+                Title="Service Management"
+                ContentTemplate="{DataTemplate local:PalveluidenHallinta}"
+                Route="PalveluidenHallinta" />
+        </Tab>
+        <Tab Title="Cottages">
+            <ShellContent 
+                Title="Cottage Management"
+                ContentTemplate="{DataTemplate local:MokkiHallinta}"
+                Route="MokkiHallinta" />
+        </Tab>
+        <Tab Title="Customers">
+            <ShellContent 
+                Title="Customer Management"
+                ContentTemplate="{DataTemplate local:AsiakasHallinta}"
+                Route="AsiakasHallinta" />
+        </Tab>
+        <Tab Title="Bookings">
+            <ShellContent 
+                Title="Booking Management"
+                ContentTemplate="{DataTemplate local:Varaushallinta}"
+                Route="Varaushallinta" />
+        </Tab>
+    </FlyoutItem>
 
 </Shell>
