@@ -7,7 +7,7 @@
 
 
 
-        <Label Text="Alueet" FontAttributes="Bold" Margin="0,10,0,0"/>
+        <Label Text="Alueet" FontAttributes="Bold" Margin="0,10,0,0" TextColor="White"/>
 
        
         <Border Stroke="DarkGray"
@@ -26,17 +26,17 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding nimi}" />
+                            <Label Text="{Binding nimi}" TextColor="White" />
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
             
         </Border>
-            <Label Text="Alue"/>
-        <Entry x:Name="AlueEntry" Placeholder="Alue nimi" />
+            <Label Text="Alue" TextColor="White"/>
+        <Entry x:Name="AlueEntry" Placeholder="Alue nimi" TextColor="White" PlaceholderColor="LightGray" />
         <HorizontalStackLayout Spacing="10">
-            <SearchBar Placeholder="Alue" SearchButtonPressed="HaeNappi_Clicked" />
+            <SearchBar x:Name="AlueSearchBar" Placeholder="Alue" SearchButtonPressed="HaeNappi_Clicked" TextColor="White" PlaceholderColor="LightGray" />
             <Button Text="Lisää" Clicked="LisaaNappi_Clicked"/>
             <Button Text="Muokkaa" Clicked="MuokkaaNappi_Clicked"/>
             <Button Text="Poista" Clicked="PoistaNappi_Clicked"/>
