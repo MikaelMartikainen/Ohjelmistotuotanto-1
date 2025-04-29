@@ -1,40 +1,140 @@
 using System.Data.SqlTypes;
+using System.Data;
+using Microsoft.Maui.Controls;
 
 namespace Ohjelmistotuotanto_1;
 
 public partial class Aluehallintav2 : ContentPage
 {
+	private DatabaseHelper dbHelper;
+	private DataTable alueData;
+	private int selectedAlueId = -1;
+
 	public Aluehallintav2()
 	{
 		InitializeComponent();
+		dbHelper = new DatabaseHelper();
+		LoadAlueData();
 	}
 
-    private void PoistaNappi_Clicked(object sender, EventArgs e)
-    {
-        // SQL poisto
-    }
+	private async void LoadAlueData()
+	{
+		try
+		{
+			// Fetch all areas from the database
+			alueData = await dbHelper.GetDataAsync("SELECT * FROM `vn`.`alue` ORDER BY nimi");
+			AlueCollectionView.ItemsSource = alueData.DefaultView;
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("Virhe", $"Tietojen lataus epäonnistui: {ex.Message}", "OK");
+		}
+	}
 
-    private void MuokkaaNappi_Clicked(object sender, EventArgs e)
-    {
-        //Sql muokkaaminen
-    }
+	private void NotesCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+	{
+		if (e.CurrentSelection.Count > 0)
+		{
+			// Get the selected item
+			var selectedItem = e.CurrentSelection[0] as DataRowView;
+			if (selectedItem != null)
+			{
+				// Store the selected area ID and display the name in the entry field
+				selectedAlueId = Convert.ToInt32(selectedItem.Row["alue_id"]);
+				AlueEntry.Text = selectedItem.Row["nimi"].ToString();
+			}
+		}
+	}
+
+	private async void PoistaNappi_Clicked(object sender, EventArgs e)
+	{
+		if (selectedAlueId == -1)
+		{
+			await DisplayAlert("Huomio", "Valitse ensin poistettava alue", "OK");
+			return;
+		}
+
+		bool confirm = await DisplayAlert("Varmista", $"Haluatko varmasti poistaa alueen: {AlueEntry.Text}?", "Kyllä", "Ei");
+		if (confirm)
+		{
+			try
+			{
+				var parameters = new Dictionary<string, object>
+				{
+					{ "@id", selectedAlueId }
+				};
+				
+				await dbHelper.ExecuteNonQueryAsync("DELETE FROM `vn`.`alue` WHERE alue_id = @id", parameters);
+				
+				await DisplayAlert("Onnistui", "Alue poistettu onnistuneesti", "OK");
+				
+				// Clear selection and reload data
+				AlueEntry.Text = string.Empty;
+				selectedAlueId = -1;
+				LoadAlueData();
+			}
+			catch (Exception ex)
+			{
+				await DisplayAlert("Virhe", $"Poistaminen epäonnistui: {ex.Message}", "OK");
+			}
+		}
+	}
+
+	private async void MuokkaaNappi_Clicked(object sender, EventArgs e)
+	{
+		if (selectedAlueId == -1)
+		{
+			await DisplayAlert("Huomio", "Valitse ensin muokattava alue", "OK");
+			return;
+		}
+
+		if (string.IsNullOrWhiteSpace(AlueEntry.Text))
+		{
+			await DisplayAlert("Huomio", "Anna alueen nimi", "OK");
+			return;
+		}
+
+		try
+		{
+			var parameters = new Dictionary<string, object>
+			{
+				{ "@id", selectedAlueId },
+				{ "@nimi", AlueEntry.Text }
+			};
+			
+			await dbHelper.ExecuteNonQueryAsync("UPDATE `vn`.`alue` SET nimi = @nimi WHERE alue_id = @id", parameters);
+			
+			await DisplayAlert("Onnistui", "Alue päivitetty onnistuneesti", "OK");
+			
+			// Reload data to reflect changes
+			LoadAlueData();
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("Virhe", $"Päivittäminen epäonnistui: {ex.Message}", "OK");
+		}
+	}
+
+	private async void LisaaNappi_Clicked(object sender, EventArgs e)
+	{
+		if (string.IsNullOrWhiteSpace(AlueEntry.Text))
+		{
+			await DisplayAlert("Huomio", "Anna alueen nimi", "OK");
+			return;
+		}
 
     private void LisaaNappi_Clicked(object sender, EventArgs e)
     {
-        // sql lis��minen
+        // sql lisääminen
     }
     private void HaeNappi_Clicked(object sender, EventArgs e)
     {
         // sql hakeminen
     }
 
+
     private void NotesCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        // listasta valitaan asia
-    }
-
-    private void Aluehakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        // valitsee mink� suhteen haetaan
+        // listasta valitaan joku
     }
 }
