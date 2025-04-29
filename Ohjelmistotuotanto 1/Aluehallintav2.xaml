@@ -47,7 +47,7 @@
         <!--Valikko, josta valitaan, minkä perusteella haetaan-->
         <Picker x:Name="Aluehakuavlitsija"
                 Title="Valitse minkä perusteella haetaan"
-                SelectedIndexChanged="Aluehakuvalitsija_SelectedIndexChanged">
+                SelectedIndexChanged="Aluehakuavlitsija_SelectedIndexChanged">
             
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">

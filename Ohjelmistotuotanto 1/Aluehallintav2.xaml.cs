@@ -122,19 +122,17 @@ public partial class Aluehallintav2 : ContentPage
 			await DisplayAlert("Huomio", "Anna alueen nimi", "OK");
 			return;
 		}
+	}
 
-    private void LisaaNappi_Clicked(object sender, EventArgs e)
-    {
-        // sql lisääminen
-    }
+
+
     private void HaeNappi_Clicked(object sender, EventArgs e)
     {
         // sql hakeminen
     }
 
-
-    private void NotesCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void Aluehakuavlitsija_SelectedIndexChanged(object sender, EventArgs e)
     {
-        // listasta valitaan joku
+		// valitsee minkä suhteen haetaan
     }
 }
