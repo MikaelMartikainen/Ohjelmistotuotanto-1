@@ -28,9 +28,13 @@ public partial class Aluehallintav2 : ContentPage
         // sql hakeminen
     }
 
-
     private void NotesCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        // listasta valitaan joku
+        // listasta valitaan asia
+    }
+
+    private void Aluehakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        // valitsee minkä suhteen haetaan
     }
 }

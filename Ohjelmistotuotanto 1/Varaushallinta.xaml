@@ -14,12 +14,12 @@
                    Grid.Row="0"
                    Grid.RowSpan="4"
                    Grid.ColumnSpan="6">
-
+            <!--Näyttää kiinitetyn Varaus SQL taulukon-->
             <CollectionView x:Name="VarausCollectionView"
                                SelectionMode="Single"
                                SelectionChanged="VarausCollectionView_SelectionChanged"
-                               HeightRequest="300">
-                <!-- Tähän kiinnitä SQL -->
+                HeightRequest="300"> 
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
@@ -35,7 +35,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
@@ -58,11 +58,15 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-
+              <!--Varauksen  entry ja label-->
             <Label Text="Varauksen tekopäivä" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="VarausEntry" Placeholder="Palvelu" Grid.Column="1" Grid.Row="4"></Entry>
-            <SearchBar x:Name="VarausTekoSB" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="VarausTekoSB_SearchButtonPressed"></SearchBar>
+            <!--Yleinen hakupalkki-->
+            <SearchBar x:Name="VarausHaku" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="VarausHaku_SearchButtonPressed"></SearchBar>
+            
+            <!--Lisaa uuden varauksen-->
             <Button x:Name="LisaaVarausNappi" Text="Lisää" Grid.Column="3" Grid.Row="4" Clicked="LisaaVarausNappi_Clicked" BorderColor="Black" BorderWidth="2">
+                
                 <!--tekee hienoja asioita kun nappia painetaan-->
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
@@ -87,6 +91,8 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
+            
+            <!--Muokkaa valittua varausta -->
             <Button x:Name="MuokkaaVarausNappi" Text="Muokkaa" Grid.Column="4" Grid.Row="4" Clicked="MuokkaaVarausNappi_Clicked" BorderColor="Black" BorderWidth="2" >
                 <!--tekee hienoja asioita kun nappia painetaan-->
                 <VisualStateManager.VisualStateGroups>
@@ -112,6 +118,8 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
+            
+            <!--Poistaa valitun varauksen-->
             <Button x:Name="PoistaVarausNappi" Text ="Poista" Grid.Column="5" Grid.Row="4" Clicked="PoistaVarausNappi_Clicked" BorderColor="Black" BorderWidth="2">
                 <!--tekee hienoja asioita kun nappia painetaan-->
                 <VisualStateManager.VisualStateGroups>
@@ -142,25 +150,26 @@
                 </VisualStateManager.VisualStateGroups>
             </Button>
 
-            <!--Vahvistus_pvm-->
+            <!--Vahvistus_pvm label ja entry kenttä-->
             <Label Text="Vahvistus pvm" Grid.Column="0" Grid.Row="5" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="VahvistuspvmEntry" Placeholder="Kuvaus" Grid.Column="1" Grid.Row="5"></Entry>
-            <SearchBar x:Name="VahvistuspvmSB" Grid.Column="2" Grid.Row="5 " SearchButtonPressed="VahvistuspvmSB_SearchButtonPressed"></SearchBar>
-
-            <!--Varattu alkupäivä ä-->
+          
+            <!--Varattu alkupäivä label ja entrykenttä-->
             <Label Text="Varauksen alku pvm" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="VarausAlkupvmEntry" Placeholder="12.12.2020" Grid.Column="1" Grid.Row="6"></Entry>
-            <SearchBar x:Name="VarausAlkupvmSB" Grid.Column="2" Grid.Row="6 " SearchButtonPressed="VarausAlkupvmSB_SearchButtonPressed"></SearchBar>
+            
+            
 
-            <!--Varauksen loppupäivä-->
+            <!--Varauksen loppupäivä label ja entry kenttä-->
             <Label Text="Varauksen loppu pvm" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="VarausLoppupvmEntry" Placeholder="12.12.2020" Grid.Column="1" Grid.Row="7"></Entry>
-            <SearchBar x:Name="VarausLoppupvmSB" Grid.Column="2" Grid.Row="7 " SearchButtonPressed="VarausLoppupvmSB_SearchButtonPressed"></SearchBar>
+      
 
-            <!--Asiakas-->
+            <!--Asiakas label ja etry kenttä-->
             <Label Text="Asiakas ID" Grid.Column="0" Grid.Row="8" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="AsiakasIDEntry" Placeholder="1" Grid.Column="1" Grid.Row="8"></Entry>
-            <SearchBar x:Name="AsiakasIDSB" Grid.Column="2" Grid.Row="8 " SearchButtonPressed="AsiakasIDSB_SearchButtonPressed"></SearchBar>
+
+         
             
             <Border Stroke="DarkGray"
            StrokeThickness="1"
@@ -171,12 +180,11 @@
                Grid.Row="9"
                Grid.RowSpan="2"
                Grid.ColumnSpan="3">
-
+               <!--Näyttää kiinetetyn asiakas taulukon, jotta voidaan valita asiakas id-->
                 <CollectionView x:Name="AsiakasCollectionView"
                     SelectionMode="Single"
                     SelectionChanged="AsiakasCollectionView_SelectionChanged"
                     HeightRequest="300">
-                    <!-- Tähän kiinnitä SQL -->
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
@@ -190,8 +198,9 @@
             <!--Mökki-->
             <Label Text="Mökki ID" Grid.Column="3" Grid.Row="8" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="MokkiIDEntry" Placeholder="1" Grid.Column="4" Grid.Row="8"></Entry>
-            <SearchBar x:Name="MokkiIDSB" Grid.Column="5" Grid.Row="8 " SearchButtonPressed="MokkiIDSB_SearchButtonPressed"></SearchBar>
-
+            
+            
+            
             <Border Stroke="DarkGray"
             StrokeThickness="1"
             StrokeShape="RoundRectangle 8"
@@ -201,12 +210,11 @@
             Grid.Row="9"
             Grid.RowSpan="2"
             Grid.ColumnSpan="5">
-
+                <!--Näyttää kiinetetyn mökki sql taulukon, jotta voidaan valita mökki id-->
                 <CollectionView x:Name="MokkiCollectionView"
                 SelectionMode="Single"
                 SelectionChanged="MokkiCollectionView_SelectionChanged"
                     HeightRequest="300">
-                    <!-- Tähän kiinnitä SQL -->
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
@@ -217,6 +225,23 @@
                 </CollectionView>
             </Border>
 
+            <!-- Valitsee minkä suhteen haetaan-->
+            <Picker x:Name="hakuvalitsija"
+                    Grid.Row="3" Grid.Column="2"
+                Title="Valitse minkä perusteella haetaan"
+                SelectedIndexChanged="hakuvalitsija_SelectedIndexChanged">
+
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                    <x:String>Varauksen teko pvm</x:String>
+                    <x:String>Vahvistus pvm</x:String>
+                    <x:String>Varauksen alku pvm</x:String>
+                    <x:String>Varauksen loppu pvm</x:String>
+                    <x:String>Asiakas ID</x:String>
+                    <x:String>Mökki ID</x:String>
+                </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
         </Grid>
     </StackLayout>
 </ContentPage>

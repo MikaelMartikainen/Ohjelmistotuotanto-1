@@ -12,10 +12,6 @@ public partial class PalveluidenHallinta : ContentPage
         // palvelu listasta painettu
     }
 
-    private void PalveluNimiSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsi palveluista palvelun nimellä
-    }
 
     private void LisaaPalveluNappi_Clicked(object sender, EventArgs e)
     {
@@ -27,33 +23,23 @@ public partial class PalveluidenHallinta : ContentPage
         // muokkaa valittua palvelua
     }
 
-    private void PoistaPalveluNappi_Clicked(object sender, EventArgs e)
-    {
-        // poista valittu palvelu
-    }
-
-    private void KuvausSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsi palvelua kuvauksella
-    }
-
-    private void alvSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsi palvelua alvilla
-    }
-
-    private void HintaSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsi palvelua hinnalla
-    }
-
-    private void AlueIDSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsi palvelua alue id:llä
-    }
-
     private void AlueCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         // alue valittu valikosta ja laitta sen id:n entry
+    }
+
+    private void hakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        // valitsee minkä suhteen haetaan
+    }
+
+    private void Palveluhaku_SearchButtonPressed(object sender, EventArgs e)
+    {
+        // Hakee palvelun valitun asian suhteen
+    }
+
+    private void PoistaPalveluNappi_Clicked(object sender, EventArgs e)
+    {
+        // poistaa valitun palvelun
     }
 }

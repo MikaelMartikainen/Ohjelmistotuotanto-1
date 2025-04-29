@@ -14,12 +14,12 @@
                    Grid.Row="0"
                    Grid.RowSpan="4"
                    Grid.ColumnSpan="6">
-
+            <!--Näyttää kiinnityn Asiakas SQL Taulukon-->
             <CollectionView x:Name="AsiakasCollectionView"
                                SelectionMode="Single"
                                SelectionChanged="AsiakasCollectionView_SelectionChanged"
                                HeightRequest="300">
-                <!-- Tähän kiinnitä SQL -->
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
@@ -35,7 +35,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
@@ -61,8 +61,11 @@
 
             <Label Text="Etunimi" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="EtunimiEntry" Placeholder="Elli" Grid.Column="1" Grid.Row="4"></Entry>
-            <SearchBar x:Name="EtunimiSB" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="EtunimiSB_SearchButtonPressed"></SearchBar>
+           <!--Yleinen hakunappi -->
+            <SearchBar x:Name="Hae" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="Hae_SearchButtonPressed"></SearchBar>
+            <!--Lisää uuden asiakkaan nappi -->
             <Button x:Name="LisaaAsiakasNappi" Text="Lisää" Grid.Column="3" Grid.Row="4" Clicked="LisaaAsiakasNappi_Clicked" BorderColor="Black" BorderWidth="2">
+                
                 <!--tekee hienoja asioita kun nappia painetaan-->
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
@@ -87,6 +90,7 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
+            <!--Yleinen muokkaa nappi-->
             <Button x:Name="MuokkaaAsiakasNappi" Text="Muokkaa" Grid.Column="4" Grid.Row="4" Clicked="MuokkaaAsiakasNappi_Clicked" BorderColor="Black" BorderWidth="2" >
                 <!--tekee hienoja asioita kun nappia painetaan-->
                 <VisualStateManager.VisualStateGroups>
@@ -112,6 +116,7 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
+            <!--Yleinen poista nappi-->
             <Button x:Name="PoistaAsiakasNappi" Text ="Poista" Grid.Column="5" Grid.Row="4" Clicked="PoistaAsiakasNappi_Clicked" BorderColor="Black" BorderWidth="2">
                 <!--tekee hienoja asioita kun nappia painetaan-->
                 <VisualStateManager.VisualStateGroups>
@@ -145,30 +150,42 @@
             <!--Sukunimi-->
             <Label Text="Sukunimi" Grid.Column="0" Grid.Row="5" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="SukunimieEntry" Placeholder="Esimerkki" Grid.Column="1" Grid.Row="5"></Entry>
-            <SearchBar x:Name="SukunimiSB" Grid.Column="2" Grid.Row="5 " SearchButtonPressed="SukunimiSB_SearchButtonPressed"></SearchBar>
+
 
 
             <!--Lähiosoite -->
             <Label Text="Lähiosoite" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="LahiosoiteEntry" Placeholder="0" Grid.Column="1" Grid.Row="6"></Entry>
-            <SearchBar x:Name="LahiosoiteSB" Grid.Column="2" Grid.Row="6 " SearchButtonPressed="LahiosoiteSB_SearchButtonPressed"></SearchBar>
+
 
 
             <!--email-->
             <Label Text="Sähköposti" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="SähköpostiosoiteEntry" Placeholder="Kuvaus..." Grid.Column="1" Grid.Row="7"></Entry>
-            <SearchBar x:Name="SähköppostiosoiteSB" Grid.Column="2" Grid.Row="7 " SearchButtonPressed="SähköppostiosoiteSB_SearchButtonPressed"></SearchBar>
 
             <!--Puhelinnumero-->
             <Label Text="Puhelinnumero" Grid.Column="0" Grid.Row="8" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="PuhelinnumeroEntry" Placeholder="0" Grid.Column="1" Grid.Row="8"></Entry>
-            <SearchBar x:Name="PuhelinnumeroSB" Grid.Column="2" Grid.Row="8" SearchButtonPressed="PuhelinnumeroSB_SearchButtonPressed"></SearchBar>
-
             <!--Postinumero-->
             <Label Text="Postinumero" Grid.Column="0" Grid.Row="10" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
             <Entry x:Name="PostinumeroEntry" Placeholder="00000" Grid.Column="1" Grid.Row="10"></Entry>
-            <SearchBar x:Name="PostinumeroSB" Grid.Column="2" Grid.Row="10 " SearchButtonPressed="PostinumeroSB_SearchButtonPressed"></SearchBar>
 
+            <!--Valikko, josta valitaan, minkä perusteella haetaan-->
+            <Picker x:Name="Hakuvalitsija"
+                    Grid.Row="3" Grid.Column="2"
+                Title="Valitse minkä perusteella haetaan"
+                SelectedIndexChanged="Hakuvalitsija_SelectedIndexChanged">
+
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                    <x:String>Etunimi</x:String>
+                    <x:String>Sukunimi</x:String>
+                    <x:String>Lähiosoite</x:String>
+                    <x:String>Puhelinnumero</x:String>
+                    <x:String>Postinumero</x:String>
+                </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
 
         </Grid>

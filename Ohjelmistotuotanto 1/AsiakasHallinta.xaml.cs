@@ -12,9 +12,6 @@ public partial class AsiakasHallinta : ContentPage
         // Valitaan asiakas
     }
 
-   
-
-
     private void LisaaAsiakasNappi_Clicked(object sender, EventArgs e)
     {
         // lisää asiakas
@@ -29,33 +26,14 @@ public partial class AsiakasHallinta : ContentPage
     {
         // poista olemassa oleva asiakas
     }
-    private void EtunimiSB_SearchButtonPressed(object sender, EventArgs e)
+
+    private void Hae_SearchButtonPressed(object sender, EventArgs e)
     {
-        // etsi asiakasta etunimellä
+        // etsii asiakkaan valitun asian perusteella
     }
 
-    private void SukunimiSB_SearchButtonPressed(object sender, EventArgs e)
+    private void Hakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
     {
-        // etsii asiakasta sukunimellä
-    }
-
-    private void LahiosoiteSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsii asiakasta osoitteella
-    }
-
-    private void SähköppostiosoiteSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsii asiakkaan sähköpostilla
-    }
-
-    private void PuhelinnumeroSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsii asiakkaan ppuhelin numeron perusteella
-    }
-
-    private void PostinumeroSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsii asiakkaan postinumeron perusteella
+        // valitsee minkä suhteen haetaan
     }
 }

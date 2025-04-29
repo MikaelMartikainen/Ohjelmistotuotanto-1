@@ -9,13 +9,9 @@ public partial class Varaushallinta : ContentPage
 
     private void VarausCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        // Valitsee varauksen painaessa j alaittaa sen tiedot entry kenttään.
+        // Asia valitaan varaus listasta ja laitetaan entry kenttiin
     }
 
-    private void VarausTekoSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // Etsii varaukseia sen tekopäivän mukaan
-    }
 
     private void LisaaVarausNappi_Clicked(object sender, EventArgs e)
     {
@@ -29,22 +25,7 @@ public partial class Varaushallinta : ContentPage
 
     private void PoistaVarausNappi_Clicked(object sender, EventArgs e)
     {
-        // Poistaa varauksen
-    }
-
-    private void VahvistuspvmSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // Etsii varauksia vahvistusopäivämäärän perusteella
-    }
-
-    private void VarausAlkupvmSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        //Etsi varauksia alkupäivä määrän perusteella
-    }
-
-    private void VarausLoppupvmSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        //Etsii varauksia loopumis päivämäärän perusteella
+        // Poistaa varauksen 
     }
 
     private void AsiakasCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -52,18 +33,18 @@ public partial class Varaushallinta : ContentPage
         // Kun asiakas listasta valitaan asiakas niin laittaa asiakkaan id:n entry kenttään
     }
 
-    private void AsiakasIDSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // etsii varauksia asiakas id:n perusteella
-    }
-
-    private void MokkiIDSB_SearchButtonPressed(object sender, EventArgs e)
-    {
-        // Etsii varauksia mökki id:n perusteella
-    }
-
     private void MokkiCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         // Kuhn mökkilistasta valitaan mökki, laittaa sen id:n entry kenttään
+    }
+
+    private void hakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        // valitsee minkä suhteen haetaan
+    }
+
+    private void VarausHaku_SearchButtonPressed(object sender, EventArgs e)
+    {
+        // Hakee varauksen valitun asian suhteen
     }
 }
