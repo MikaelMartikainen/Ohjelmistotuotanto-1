@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ohjelmistotuotanto_1.MajoittumisenRaportointi"
+             Title="Majoittumisen Raportointi"
+             BackgroundColor="#2E2E2E">
+
+    <StackLayout Padding="10" Spacing="20">
+
+        <!-- Otsikko -->
+        <Label Text="Majoittumisen Raportointi"
+               FontSize="24"
+               TextColor="White"
+               HorizontalOptions="Center" />
+
+        <!-- Aikavälin valinta -->
+        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+            <Label Text="Valitse aikajakso:"
+                   FontSize="18"
+                   TextColor="White"
+                   VerticalOptions="Center" />
+
+            <!-- Päivämäärävalitsimet aikajaksolle -->
+            <DatePicker x:Name="AloitusPvm" 
+                        Date="{Binding AloitusPvm}"
+                        MaximumDate="{Binding DateTime.Now}"
+                        Format="D"
+                        HorizontalOptions="Start" />
+            <Label Text="-"
+                   FontSize="18"
+                   TextColor="White"
+                   VerticalOptions="Center" />
+            <DatePicker x:Name="LoppuPvm" 
+                        Date="{Binding LoppuPvm}"
+                        MaximumDate="{Binding DateTime.Now}"
+                        Format="D"
+                        HorizontalOptions="Start" />
+        </StackLayout>
+
+       
+        <Label Text="Valitse alue:"
+               FontSize="18"
+               TextColor="White" />
+        <!-- Alueen valinta valikko mihin tulee näkyviin valittava alue mistä ladataan raportti -->
+        <Picker x:Name="AluePicker" 
+                ItemsSource="{Binding Alueet}" 
+                ItemDisplayBinding="{Binding AlueNimi}" 
+                SelectedItem="{Binding ValittuAlue}"
+                BackgroundColor="White" />
+
+        <!-- Lataa raportti -nappi -->
+        <Button Text="Lataa Raportti"
+                Clicked="LataaRaporttiButton_Clicked"
+                BackgroundColor="DarkGray"
+                TextColor="White"
+                BorderColor="Black"
+                BorderWidth="2"
+                CornerRadius="10"
+                HorizontalOptions="Center"
+                WidthRequest="200" />
+
+        <!-- Tähän tulee raporttitulokset -->
+        <Border Stroke="DarkGray"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 8"
+                Padding="5"
+                Margin="0,0,0,20">
+            <CollectionView x:Name="RaporttiCollectionView"
+                            HeightRequest="300">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
+                            <Label Text="{Binding RaporttiTiedot}" TextColor="Black" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+    </StackLayout>
+</ContentPage>

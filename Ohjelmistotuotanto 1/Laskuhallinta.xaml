@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ohjelmistotuotanto_1.Laskuhallinta"
+             Title="Laskuhallinta"
+             BackgroundColor="#2E2E2E">
+
+    <StackLayout Padding="10" Spacing="20">
+
+        <Label Text="Laskujen hallinta"
+               FontSize="24"
+               TextColor="White"
+               HorizontalOptions="Center" />
+
+        <!-- TÄSSÄ ON NÄKYMÄ JOHON TULEE TIETOKANNASTA KAIKKI LASKUT -->
+        <Border Stroke="DarkGray"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 8"
+                Padding="5"
+                Margin="0,0,0,20">
+            <CollectionView x:Name="LaskuCollectionView"
+                            SelectionMode="Single"
+                            SelectionChanged="LaskuCollectionView_SelectionChanged"
+                            HeightRequest="300">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
+                            <Label Text="{Binding LaskunTiedot}" TextColor="Black" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+        <!-- TULOSTUSTAPA JA TULOSTA NAPPI OIKEALLE YLÄREUNAAN -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+            <Label Text="Valitse tulostustapa:"
+                   FontSize="18"
+                   TextColor="White"
+                   VerticalOptions="Center" />
+            <!-- Poistettu aiemmat "Valitse laskutustapa" nappiryhmät, ja jätetty vain tulostustapa -->
+            <RadioButton x:Name="TulostusPaperilaskuRadio" Content="Paperilasku" IsChecked="True" TextColor="White" />
+            <RadioButton x:Name="TulostusSahkopostilaskuRadio" Content="Sähköpostilasku" TextColor="White" />
+            <Button Text="Tulosta Lasku"
+                    Clicked="TulostaLaskuButton_Clicked"
+                    BackgroundColor="DarkGray"
+                    TextColor="White"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    CornerRadius="10"
+                    HorizontalOptions="Start"
+                    WidthRequest="150"/>
+        </StackLayout>
+
+        <!-- POISTA LASKU -NAPPULAT JA MUOKKAUSNAPPI -->
+        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,20">
+            <!-- Poista lasku -nappi -->
+            <Button x:Name="PoistaLaskuButton" Text="Poista Lasku"
+                    Clicked="PoistaLaskuButton_Clicked"
+                    BackgroundColor="DarkGray"
+                    TextColor="White"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    IsEnabled="False" />
+
+          
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>

@@ -194,7 +194,15 @@ namespace Ohjelmistotuotanto_1
 
         private async void OnLaskujenHallintaClicked(object sender, EventArgs e)
         {
-            // Not implemented yet
+            try
+            {
+                await Navigation.PushAsync(new Laskuhallinta());
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Navigation error: {ex.Message}");
+                await DisplayAlert("Navigation Error", "Could not navigate to the page.", "OK");
+            }
         }
 
         private async void OnMajoittumisetAlueittainClicked(object sender, EventArgs e)
@@ -206,7 +214,7 @@ namespace Ohjelmistotuotanto_1
         {
             try
             {
-                await Navigation.PushAsync(new Varaushallinta());
+                await Navigation.PushAsync(new MajoittumisenRaportointi());
             }
             catch (Exception ex)
             {
@@ -217,7 +225,15 @@ namespace Ohjelmistotuotanto_1
 
         private async void OnOstetutPalvelutClicked(object sender, EventArgs e)
         {
-            // Not implemented yet
+            try
+            {
+                await Navigation.PushAsync(new LisapalveluRaportointi());
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Navigation error: {ex.Message}");
+                await DisplayAlert("Navigation Error", "Could not navigate to the page.", "OK");
+            }
         }
     }
 }
