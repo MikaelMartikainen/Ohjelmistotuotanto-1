@@ -78,7 +78,7 @@
                     CornerRadius="10"
                     FontSize="14"
                     HeightRequest="80"
-                    Clicked="OnMajoittumistenRaportointiClicked"/>
+                    Clicked="OnMajoittumisetAlueittainClicked"/>
 
             <Button Grid.Row="3" Grid.Column="1"
                     Text="Ostettujen palvelujen raportointi aikajaksolla valituilla alueilla"
