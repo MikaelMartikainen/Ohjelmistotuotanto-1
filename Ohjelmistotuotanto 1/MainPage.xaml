@@ -63,7 +63,7 @@
                     Clicked="OnLaskujenHallintaClicked"/>
 
             <Button Grid.Row="2" Grid.Column="1"
-                    Text="Majoittumisten raportointi aikajaksolla valituilla alueilla"
+                    Text="Majoittumisten raportointi"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
@@ -81,7 +81,7 @@
                     Clicked="OnMajoittumisetAlueittainClicked"/>
 
             <Button Grid.Row="3" Grid.Column="1"
-                    Text="Ostettujen palvelujen raportointi aikajaksolla valituilla alueilla"
+                    Text="Ostettujen palvelujen raportointi"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
