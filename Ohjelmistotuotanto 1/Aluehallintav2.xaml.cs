@@ -122,17 +122,73 @@ public partial class Aluehallintav2 : ContentPage
 			await DisplayAlert("Huomio", "Anna alueen nimi", "OK");
 			return;
 		}
-	}
+        
+        try
+        {
+            // Loading data from entry fields to teidot object
+			
+            var tiedot = new Dictionary<string, object>
+            {
+                { "@nimi", AlueEntry.Text}
+            };
+			
+            //Running SQL querry
+            await dbHelper.ExecuteNonQueryAsync("INSERT INTO `vn`.`alue` (`nimi`) " + "VALUES(@nimi)", tiedot);
 
-
-
-    private void HaeNappi_Clicked(object sender, EventArgs e)
-    {
-        // sql hakeminen
+            //Updating list to show new data
+            LoadAlueData();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Virhe", $"Lisääminen epäonnistui: {ex.Message}", "OK");
+        }
     }
 
-    private void Aluehakuavlitsija_SelectedIndexChanged(object sender, EventArgs e)
+
+
+    private async void HaeNappi_Clicked(object sender, EventArgs e)
     {
-		// valitsee minkä suhteen haetaan
+        // Search for the selected item
+
+        var haku = new Dictionary<string, string>
+        {
+            { "AlueID", "alue_id"},
+            { "Alue", "nimi"}
+        };
+
+
+        string searchText = AlueSearchText.Text;
+        string selectedCategory = Aluehakuavlitsija.SelectedItem.ToString();
+
+        //Cheching if search field is empty
+        if (string.IsNullOrWhiteSpace(searchText) || string.IsNullOrWhiteSpace(selectedCategory))
+        {
+            await DisplayAlert("Virhe", "Valitse hakukategoria ja kirjoita hakusana.", "OK");
+            return;
+        }
+
+        if (!haku.TryGetValue(selectedCategory, out string columnName))
+        {
+            await DisplayAlert("Virhe", "Tuntematon hakukategoria.", "OK");
+            return;
+        }
+
+        //Runnig the SQL quearry
+        DataTable result = await dbHelper.GetDataAsync($"SELECT * FROM `vn`.`alue` WHERE {columnName} LIKE '{searchText}%'");
+
+        //Placeing the searched data into the entry fields
+        if (result.Rows.Count > 0)
+        {
+            DataRow row = result.Rows[0];
+
+            AlueEntry.Text = row["nimi"].ToString();
+
+        }
+        else
+        {
+            await DisplayAlert("Ei tuloksia", "Hakusi ei palauttanut tietoja", "OK");
+        }
+
     }
 }
+

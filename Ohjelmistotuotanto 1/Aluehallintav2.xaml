@@ -27,7 +27,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding nimi}" TextColor="White" />
+                            <Label Text="{Binding [nimi]}" />
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -37,7 +37,7 @@
             <Label Text="Alue"/>
         <Entry x:Name="AlueEntry" Placeholder="Alue nimi" />
         <HorizontalStackLayout Spacing="10">
-            <SearchBar Placeholder="Alue" SearchButtonPressed="HaeNappi_Clicked" />
+            <SearchBar x:Name="AlueSearchText" Placeholder="Alue" SearchButtonPressed="HaeNappi_Clicked" />
             <Button Text="Lisää" Clicked="LisaaNappi_Clicked"/>
             <Button Text="Muokkaa" Clicked="MuokkaaNappi_Clicked"/>
             <Button Text="Poista" Clicked="PoistaNappi_Clicked"/>
@@ -46,8 +46,7 @@
         </HorizontalStackLayout>
         <!--Valikko, josta valitaan, minkä perusteella haetaan-->
         <Picker x:Name="Aluehakuavlitsija"
-                Title="Valitse minkä perusteella haetaan"
-                SelectedIndexChanged="Aluehakuavlitsija_SelectedIndexChanged">
+                Title="Valitse minkä perusteella haetaan">
             
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
