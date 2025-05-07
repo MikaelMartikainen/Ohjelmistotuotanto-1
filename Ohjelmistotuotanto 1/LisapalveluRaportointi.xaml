@@ -5,69 +5,91 @@
              Title="Lisäpalvelujen Raportointi"
              BackgroundColor="#2E2E2E">
 
-    <StackLayout Padding="10" Spacing="20">
+    <Grid>
+        <StackLayout Padding="10" Spacing="20">
 
-        <Label Text="Lisäpalvelujen Raportointi"
-               FontSize="24"
-               TextColor="White"
-               HorizontalOptions="Center" />
-
-        <!-- Aikajakson valinta -->
-        <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
-            <Label Text="Valitse aikajakso:"
-                   FontSize="18"
+            <Label Text="Lisäpalvelujen Raportointi"
+                   FontSize="24"
                    TextColor="White"
-                   VerticalOptions="Center" />
-            <DatePicker x:Name="AloitusPvm" />
-            <Label Text="-" TextColor="White" VerticalOptions="Center"/>
-            <DatePicker x:Name="LopetusPvm" />
+                   HorizontalOptions="Center" />
+
+            <!-- Aikajakson valinta -->
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+                <Label Text="Valitse aikajakso:"
+                       FontSize="18"
+                       TextColor="White"
+                       VerticalOptions="Center" />
+                <DatePicker x:Name="AloitusPvm" />
+                <Label Text="-" TextColor="White" VerticalOptions="Center"/>
+                <DatePicker x:Name="LopetusPvm" />
+            </StackLayout>
+
+            <!-- Alueen valinta Picker -->
+            <Label Text="Valitse alue:" TextColor="White" />
+            <Picker x:Name="AluePicker"
+                    Title="Valitse alue"
+                    TextColor="Black"
+                    BackgroundColor="White">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Pohjois-Suomi</x:String>
+                        <x:String>Itä-Suomi</x:String>
+                        <x:String>Etelä-Suomi</x:String>
+                        <x:String>Länsi-Suomi</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <!-- Lataa Raportti -painike -->
+            <Button Text="Lataa Raportti"
+                    Clicked="LuoRaporttiButton_Clicked"
+                    BackgroundColor="DarkGray"
+                    TextColor="White"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    CornerRadius="10"
+                    HorizontalOptions="Center"
+                    WidthRequest="150" />
+
+            <!-- Raporttinäkymä -->
+            <Border Stroke="Gray"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="5"
+                    Margin="0,10,0,0">
+                <CollectionView x:Name="RaporttiCollectionView"
+                                HeightRequest="300"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="LightGray" 
+                                   Padding="10" 
+                                   Margin="5" 
+                                   CornerRadius="5"
+                                   BackgroundColor="#3E3E3E">
+                                <Label Text="{Binding}" 
+                                       TextColor="White" 
+                                       FontSize="16" />
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
         </StackLayout>
-
-        <!-- Alueen valinta Picker -->
-        <Label Text="Valitse alue:" TextColor="White" />
-        <Picker x:Name="AluePicker"
-                Title="Valitse alue"
-                TextColor="Black"
-                BackgroundColor="White">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Helsinki</x:String>
-                    <x:String>Turku</x:String>
-                    <x:String>Tampere</x:String>
-                    <x:String>Oulu</x:String>
-                    <x:String>Rovaniemi</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
-
-        <!-- Lataa Raportti -painike -->
-        <Button Text="Lataa Raportti"
-                Clicked="LuoRaporttiButton_Clicked"
-                BackgroundColor="DarkGray"
-                TextColor="White"
-                BorderColor="Black"
-                BorderWidth="2"
-                CornerRadius="10"
-                HorizontalOptions="Center"
-                WidthRequest="150" />
-
-        <!-- Raporttinäkymä -->
-        <Border Stroke="Gray"
-                StrokeThickness="1"
-                StrokeShape="RoundRectangle 8"
-                Padding="5"
-                Margin="0,10,0,0">
-            <CollectionView x:Name="RaporttiCollectionView"
-                            HeightRequest="300">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding}" TextColor="White" />
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Border>
-
-    </StackLayout>
+        
+        <!-- Loading indicator -->
+        <Grid BackgroundColor="#80000000" IsVisible="{Binding IsLoading}">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                                   Color="White" 
+                                   HeightRequest="50" 
+                                   WidthRequest="50" />
+                <Label Text="Ladataan tietoja..." 
+                       TextColor="White" 
+                       Margin="0,10,0,0" 
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>
