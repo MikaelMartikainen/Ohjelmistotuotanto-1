@@ -23,8 +23,8 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                                <Label Text="{Binding Mökit}" />
-                            </Frame>
+                            <Label Text="{Binding [mokkinimi]}" />
+                        </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -209,7 +209,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                                <Label Text="{Binding Alue}" />
+                                <Label Text="{Binding [nimi]}" />
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -218,8 +218,7 @@
             <!--Valikko, josta valitaan, minkä perusteella haetaan-->
             <Picker x:Name="hakuvalitsija"
                     Grid.Row="3" Grid.Column="2"
-                Title="Valitse minkä perusteella haetaan"
-                SelectedIndexChanged="hakuvalitsija_SelectedIndexChanged">
+                Title="Valitse minkä perusteella haetaan">
 
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
