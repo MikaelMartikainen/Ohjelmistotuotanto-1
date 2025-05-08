@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0"
-                    Text="Alueiden hallinta"
+                    Text="Aluehallinta"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
@@ -27,7 +27,7 @@
                     Clicked="OnAlueidenHallintaClicked"/>
 
             <Button Grid.Row="0" Grid.Column="1"
-                    Text="Palveluiden hallinta"
+                    Text="Palveluhallinta"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
@@ -36,7 +36,7 @@
                     Clicked="OnPalveluidenHallintaClicked"/>
 
             <Button Grid.Row="1" Grid.Column="0"
-                    Text="Mökkien hallinta"
+                    Text="Mökkihallinta"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
@@ -45,7 +45,7 @@
                     Clicked="OnMokkivarauksetClicked"/>
 
             <Button Grid.Row="1" Grid.Column="1"
-                    Text="Asiakashallintajärjestelmä"
+                    Text="Asiakashallinta"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
@@ -72,7 +72,7 @@
                     Clicked="OnMajoittumistenRaportointiClicked"/>
 
             <Button Grid.Row="3" Grid.Column="0"
-                    Text="Varaus Hallinta"
+                    Text="Varaushallinta"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
