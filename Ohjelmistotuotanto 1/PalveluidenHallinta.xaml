@@ -144,10 +144,6 @@
             <Label Text="alv" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Entry x:Name="alvEntry" Placeholder="24" Grid.Column="1" Grid.Row="7"/>
 
-             <!--Palvelu id-->
-            <Label Text="Palvelu ID" Grid.Column="0" Grid.Row="8" VerticalOptions="Center" HorizontalOptions="Center"/>
-            <Entry x:Name="PalveluIDEntry" Placeholder="1" Grid.Column="1" Grid.Row="8"/>
-            
             <!-- AlueID -->
             <Label Text="AlueID" Grid.Column="0" Grid.Row="10" VerticalOptions="Center" HorizontalOptions="Center"/>
             <Entry x:Name="AlueIDEntry" Placeholder="1" Grid.Column="1" Grid.Row="10"/>
