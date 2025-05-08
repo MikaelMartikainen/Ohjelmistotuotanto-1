@@ -89,62 +89,146 @@
                         TextColor="White" />
             <Button Text="Tulosta Lasku"
                     Clicked="TulostaLaskuButton_Clicked"
-                    BackgroundColor="#007BFF"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    BorderColor="#0069D9"
-                    BorderWidth="1"
-                    CornerRadius="6"
+                    BorderColor="Black" 
+                    BorderWidth="2"
                     HorizontalOptions="Start"
-                    WidthRequest="150"/>
+                    WidthRequest="150">
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.9" />
+                                    <Setter Property="Opacity" Value="0.9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </StackLayout>
 
         <!-- TOIMINTOPAINIKKEET -->
-        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,10">
+        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10" Margin="0,10">
             <!-- Poista lasku -nappi -->
             <Button x:Name="PoistaLaskuButton" 
                     Text="Poista Lasku"
                     Clicked="PoistaLaskuButton_Clicked"
-                    BackgroundColor="#DC3545"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    BorderColor="#C82333"
-                    BorderWidth="1"
-                    CornerRadius="6"
-                    IsEnabled="False" />
+                    BorderColor="Black" 
+                    BorderWidth="2"
+                    Grid.Column="0"
+                    IsEnabled="False">
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.9" />
+                                    <Setter Property="Opacity" Value="0.9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
 
             <!-- Merkitse maksetuksi -nappi -->
             <Button x:Name="MerkitseMaksetuksiButton" 
                     Text="Merkitse Maksetuksi"
                     Clicked="MerkitseMaksetuksiButton_Clicked"
-                    BackgroundColor="#28A745"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    BorderColor="#218838"
-                    BorderWidth="1"
-                    CornerRadius="6"
-                    IsEnabled="False" />
+                    BorderColor="Black" 
+                    BorderWidth="2"
+                    Grid.Column="1"
+                    IsEnabled="False">
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.9" />
+                                    <Setter Property="Opacity" Value="0.9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
             
             <!-- Luo PDF -nappi -->
             <Button Text="Luo PDF"
                     Clicked="LuoPdfButton_Clicked"
-                    BackgroundColor="#17A2B8"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    BorderColor="#138496"
-                    BorderWidth="1"
-                    CornerRadius="6" />
+                    BorderColor="Black" 
+                    BorderWidth="2"
+                    Grid.Column="2">
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.9" />
+                                    <Setter Property="Opacity" Value="0.9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
             
             <!-- Luo uusi lasku -nappi -->
             <Button Text="Luo Uusi Lasku"
                     Clicked="LisaaLaskuButton_Clicked"
-                    BackgroundColor="#FFC107"
-                    TextColor="Black"
-                    FontAttributes="Bold"
-                    BorderColor="#E0A800"
-                    BorderWidth="1"
-                    CornerRadius="6" />
-        </StackLayout>
+                    BorderColor="Black" 
+                    BorderWidth="2"
+                    Grid.Column="3">
+                <!--tekee hienoja asioita kun nappia painetaan-->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.9" />
+                                    <Setter Property="Opacity" Value="0.9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver" />
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+        </Grid>
 
     </StackLayout>
 </ContentPage>
