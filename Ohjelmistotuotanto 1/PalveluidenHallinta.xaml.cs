@@ -286,5 +286,14 @@ public partial class PalveluidenHallinta : ContentPage
             await DisplayAlert("Virhe", $"Haku epäonnistui: {ex.Message}", "OK");
         }
     }
-   
+
+    private void Palveluhaku_SearchButtonPressed_1(object sender, EventArgs e)
+    {
+
+    }
+
+    private void hakuvalitsija_SelectedIndexChanged_1(object sender, EventArgs e)
+    {
+
+    }
 }

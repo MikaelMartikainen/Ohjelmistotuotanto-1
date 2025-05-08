@@ -263,5 +263,8 @@ public partial class AsiakasHallinta : ContentPage
         }
     }
 
+    private void Hakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
+    {
 
+    }
 }
