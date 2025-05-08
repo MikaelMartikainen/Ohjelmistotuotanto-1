@@ -70,7 +70,7 @@ public partial class AsiakasHallinta : ContentPage
         };
 
             // SQL-lause, joka lis‰‰ uuden asiakkaan tietokantaan
-            dbHelper.ExecuteNonQueryAsync("INSERT INTO vn.asiakas (etunimi, sukunimi, lahiosoite, sahkoposti, puhelinnumero, postinumero) " + "VALUES (@etunimi, @sukunimi, @lahiosoite, @email, @puhelinnro, @postinro)", parameters);
+            dbHelper.ExecuteNonQueryAsync("INSERT INTO vn.asiakas (etunimi, sukunimi, lahiosoite, email, puhelinnro, postinro) " + "VALUES (@etunimi, @sukunimi, @lahiosoite, @email, @puhelinnro, @postinro)", parameters);
 
             // P‰ivitet‰‰n asiakaslista n‰kym‰ss‰, jotta uusi asiakas n‰kyy 
             LoadAsiakasData();
@@ -177,9 +177,9 @@ public partial class AsiakasHallinta : ContentPage
                 "SET etunimi = @etunimi, " +
                 "sukunimi = @sukunimi, " +
                 "lahiosoite = @lahiosoite, " +
-                "sahkoposti = @email, " +
-                "puhelinnumero = @puhelinnro, " +
-                "postinumero = @postinro " +
+                "email = @email, " +
+                "puhelinnro = @puhelinnro, " +
+                "postinro = @postinro " +
                 "WHERE asiakas_id = @asiakas_id",
                 parameters);
 
