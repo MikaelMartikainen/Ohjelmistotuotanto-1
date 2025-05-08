@@ -66,7 +66,7 @@
             <Entry x:Name="PalveluEntry" Placeholder="Palvelu" Grid.Column="1" Grid.Row="4"/>
 
             <!-- Hakupalkki -->
-            <SearchBar x:Name="Palveluhaku" Grid.Column="2" Grid.Row="4" SearchButtonPressed="Palveluhaku_SearchButtonPressed_1"/>
+            <SearchBar x:Name="Palveluhaku" Grid.Column="2" Grid.Row="4" SearchButtonPressed="Palveluhaku_SearchButtonPressed"/>
 
             <!-- Lisää -->
             <Button x:Name="LisaaPalveluNappi" Text="Lisää" Grid.Column="3" Grid.Row="4" Clicked="LisaaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2">
@@ -175,8 +175,7 @@
             <!-- Hakukriteeri Picker -->
             <Picker x:Name="hakuvalitsija"
                     Grid.Row="3" Grid.Column="2"
-                    Title="Valitse minkä perusteella haetaan"
-                    SelectedIndexChanged="hakuvalitsija_SelectedIndexChanged_1">
+                    Title="Valitse minkä perusteella haetaan">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Nimi</x:String>

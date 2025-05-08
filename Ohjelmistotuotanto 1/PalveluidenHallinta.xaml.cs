@@ -226,58 +226,57 @@ public partial class PalveluidenHallinta : ContentPage
         }
     }
 
-    private void hakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var valittuEhto = hakuvalitsija.SelectedItem as string;
 
-        if (!string.IsNullOrEmpty(valittuEhto))
-        {
-            Palveluhaku_SearchButtonPressed(valittuEhto);
-        }
-    }
+    private async void Palveluhaku_SearchButtonPressed(object sender, EventArgs e) {
+        // Search for the selected item
 
-    private async void Palveluhaku_SearchButtonPressed(string valittuHaku)
-    {
-        string query = "SELECT * FROM palvelu WHERE ";
+        var haku = new Dictionary<string, string>
+        {
+            { "Nimi", "nimi" },
+            { "Kuvaus", "kuvaus" },
+            { "Hinta", "hinta" },
+            { "alv", "alv" },
+            { "AlueID", "alue_id" }
+        };
 
-        if (valittuHaku == "Nimi")
+
+        string searchText = Palveluhaku.Text;
+        string selectedCategory = hakuvalitsija.SelectedItem.ToString();
+
+        //Cheching if search field is empty
+        if (string.IsNullOrWhiteSpace(searchText) || string.IsNullOrWhiteSpace(selectedCategory))
         {
-            query += $"nimi LIKE '%{PalveluEntry.Text}%'";
-        }
-        else if (valittuHaku == "Kuvaus")
-        {
-            query += $"kuvaus LIKE '%{KuvausEntry.Text}%'";
-        }
-        else if (valittuHaku == "Hinta")
-        {
-            query += $"hinta = {HintaEntry.Text}";
-        }
-        else if (valittuHaku == "Alv")
-        {
-            query += $"alv = {alvEntry.Text}";
-        }
-        else if (valittuHaku == "AlueID")
-        {
-            query += $"alue_id = {AlueIDEntry.Text}";
-        }
-        else
-        {
-            await DisplayAlert("Virhe", "Tuntematon hakuehto", "OK");
+            await DisplayAlert("Virhe", "Valitse hakukategoria ja kirjoita hakusana.", "OK");
             return;
         }
 
-        try
+        if (!haku.TryGetValue(selectedCategory, out string columnName))
         {
-            var tulokset = await dbHelper.GetDataAsync(query);
-            PalveluCollectionView.ItemsSource = tulokset.DefaultView;
+            await DisplayAlert("Virhe", "Tuntematon hakukategoria.", "OK");
+            return;
         }
-        catch (Exception ex)
+
+        //Runnig the SQL quearry
+        DataTable result = await dbHelper.GetDataAsync($"SELECT * FROM `vn`.`palvelu` WHERE {columnName} LIKE '{searchText}%'");
+
+        //Placeing the searched data into the entry fields
+        if (result.Rows.Count > 0)
         {
-            await DisplayAlert("Virhe", $"Haku epäonnistui: {ex.Message}", "OK");
+            DataRow row = result.Rows[0];
+
+            PalveluEntry.Text = row["nimi"].ToString();
+            KuvausEntry.Text = row["kuvaus"].ToString();
+            HintaEntry.Text = row["hinta"].ToString();
+            alvEntry.Text = row["alv"].ToString();
+            AlueIDEntry.Text = row["alue_id"].ToString();
         }
+        else
+        {
+            await DisplayAlert("Ei tuloksia", "Hakusi ei palauttanut tietoja", "OK");
+        }
+
+
     }
 
-    private void Palveluhaku_SearchButtonPressed_1(object sender, EventArgs e) { }
 
-    private void hakuvalitsija_SelectedIndexChanged_1(object sender, EventArgs e) { }
 }
