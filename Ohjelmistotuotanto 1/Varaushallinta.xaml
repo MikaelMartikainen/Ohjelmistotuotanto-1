@@ -5,7 +5,7 @@
              Title="Varaushallinta">
     <StackLayout>
 
-        <Border Stroke="DarkGray"
+        <Border    Stroke="DarkGray"
                    StrokeThickness="1"
                    StrokeShape="RoundRectangle 8"
                    Padding="5"
@@ -18,19 +18,12 @@
             <CollectionView x:Name="VarausCollectionView"
                                SelectionMode="Single"
                                SelectionChanged="VarausCollectionView_SelectionChanged"
-                HeightRequest="300"> 
+                               HeightRequest="300"> 
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <StackLayout>
-                                <Label Text="{Binding [varaus_id], StringFormat='Varaus ID: {0}'}" FontAttributes="Bold" FontSize="16"/>
-                                <Label Text="{Binding [varattu_pvm], StringFormat='Varattu: {0}'}" FontSize="14"/>
-                                <Label Text="{Binding [varattu_alkupvm], StringFormat='Alkaa: {0}'}" FontSize="14"/>
-                                <Label Text="{Binding [varattu_loppupvm], StringFormat='Loppuu: {0}'}" FontSize="14"/>
-                                <Label Text="{Binding [asiakas_id], StringFormat='Asiakas ID: {0}'}" FontSize="12"/>
-                                <Label Text="{Binding [mokki_id], StringFormat='Mökki ID: {0}'}" FontSize="12"/>
-                            </StackLayout>
+                            <Label Text="{Binding Varaukset}" />
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
