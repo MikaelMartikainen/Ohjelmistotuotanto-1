@@ -19,11 +19,17 @@
                                SelectionMode="Single"
                                SelectionChanged="AsiakasCollectionView_SelectionChanged"
                                HeightRequest="300">
-                
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding Asiakkaat}" />
+                            <StackLayout>
+                                <Label Text="{Binding [etunimi]}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding [sukunimi]}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding [lahiosoite], StringFormat='Osoite: {0} '}" FontSize="12"/>
+                                <Label Text="{Binding [email], StringFormat='Sposti: {0} '}" FontSize="12"/>
+                                <Label Text="{Binding [puhelinnro], StringFormat='Puh: {0}'}" FontSize="12"/>
+                            </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
