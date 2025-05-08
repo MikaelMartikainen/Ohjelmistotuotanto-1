@@ -25,11 +25,52 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding LaskunTiedot}" TextColor="Black" />
+                            <StackLayout>
+                                <Label Text="{Binding LaskunTiedot}" TextColor="Black" FontSize="16" />
+                                <Label Text="{Binding AsiakkaanNimi, StringFormat='Asiakas: {0}'}" TextColor="DarkGray" FontSize="14" />
+                                <Label Text="{Binding MokinNimi, StringFormat='Mökki: {0}'}" TextColor="DarkGray" FontSize="14" />
+                                <Label Text="{Binding AlkuPvm, StringFormat='Varaus: {0:dd.MM.yyyy}'}" TextColor="DarkGray" FontSize="14" />
+                            </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+        </Border>
+
+        <!-- LASKUN TIEDOT -->
+        <Border x:Name="LaskuDetailsBorder" 
+                IsVisible="False"
+                Stroke="LightGray"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 8"
+                Padding="15"
+                Margin="0,0,0,15"
+                BackgroundColor="#3A3A3A">
+            <StackLayout>
+                <Label Text="Laskun tiedot" FontSize="18" TextColor="White" HorizontalOptions="Center" Margin="0,0,0,10" />
+                <Grid ColumnDefinitions="Auto,*" RowSpacing="5" ColumnSpacing="10">
+                    <Label Grid.Row="0" Grid.Column="0" Text="Laskun ID:" TextColor="LightGray" />
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="DetailLaskuId" TextColor="White" />
+                    
+                    <Label Grid.Row="1" Grid.Column="0" Text="Varauksen ID:" TextColor="LightGray" />
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="DetailVarausId" TextColor="White" />
+                    
+                    <Label Grid.Row="2" Grid.Column="0" Text="Asiakas:" TextColor="LightGray" />
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="DetailAsiakas" TextColor="White" />
+                    
+                    <Label Grid.Row="3" Grid.Column="0" Text="Mökki:" TextColor="LightGray" />
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="DetailMokki" TextColor="White" />
+                    
+                    <Label Grid.Row="4" Grid.Column="0" Text="Ajankohta:" TextColor="LightGray" />
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="DetailAjankohta" TextColor="White" />
+                    
+                    <Label Grid.Row="5" Grid.Column="0" Text="Summa:" TextColor="LightGray" />
+                    <Label Grid.Row="5" Grid.Column="1" x:Name="DetailSumma" TextColor="White" />
+                    
+                    <Label Grid.Row="6" Grid.Column="0" Text="Tila:" TextColor="LightGray" />
+                    <Label Grid.Row="6" Grid.Column="1" x:Name="DetailTila" TextColor="White" />
+                </Grid>
+            </StackLayout>
         </Border>
 
         <!-- TULOSTUSTAPA JA TULOSTA NAPPI OIKEALLE YLÄREUNAAN -->
@@ -52,10 +93,11 @@
                     WidthRequest="150"/>
         </StackLayout>
 
-        <!-- POISTA LASKU -NAPPULAT JA MUOKKAUSNAPPI -->
-        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,20">
+        <!-- TOIMINTOPAINIKKEET -->
+        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,10">
             <!-- Poista lasku -nappi -->
-            <Button x:Name="PoistaLaskuButton" Text="Poista Lasku"
+            <Button x:Name="PoistaLaskuButton" 
+                    Text="Poista Lasku"
                     Clicked="PoistaLaskuButton_Clicked"
                     BackgroundColor="DarkGray"
                     TextColor="White"
@@ -63,7 +105,31 @@
                     BorderWidth="2"
                     IsEnabled="False" />
 
-          
+            <!-- Merkitse maksetuksi -nappi -->
+            <Button x:Name="MerkitseMaksetuksiButton" 
+                    Text="Merkitse Maksetuksi"
+                    Clicked="MerkitseMaksetuksiButton_Clicked"
+                    BackgroundColor="DarkGray"
+                    TextColor="White" 
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    IsEnabled="False" />
+            
+            <!-- Luo PDF -nappi -->
+            <Button Text="Luo PDF"
+                    Clicked="LuoPdfButton_Clicked"
+                    BackgroundColor="DarkGray"
+                    TextColor="White"
+                    BorderColor="Black"
+                    BorderWidth="2" />
+            
+            <!-- Luo uusi lasku -nappi -->
+            <Button Text="Luo Uusi Lasku"
+                    Clicked="LisaaLaskuButton_Clicked"
+                    BackgroundColor="DarkGray"
+                    TextColor="White"
+                    BorderColor="Black"
+                    BorderWidth="2" />
         </StackLayout>
 
     </StackLayout>

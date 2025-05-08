@@ -45,6 +45,12 @@
                 ContentTemplate="{DataTemplate local:Varaushallinta}"
                 Route="Varaushallinta" />
         </Tab>
+        <Tab Title="Invoices">
+            <ShellContent 
+                Title="Invoice Management"
+                ContentTemplate="{DataTemplate local:Laskuhallinta}"
+                Route="Laskuhallinta" />
+        </Tab>
     </FlyoutItem>
 
 </Shell>

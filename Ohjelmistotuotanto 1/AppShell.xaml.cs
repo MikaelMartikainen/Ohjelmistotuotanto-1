@@ -15,6 +15,7 @@ namespace Ohjelmistotuotanto_1
             Routing.RegisterRoute(nameof(MokkiHallinta), typeof(MokkiHallinta));
             Routing.RegisterRoute(nameof(AsiakasHallinta), typeof(AsiakasHallinta));
             Routing.RegisterRoute(nameof(Varaushallinta), typeof(Varaushallinta));
+            Routing.RegisterRoute(nameof(Laskuhallinta), typeof(Laskuhallinta));
         }
     }
 }
