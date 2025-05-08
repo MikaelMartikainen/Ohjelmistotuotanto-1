@@ -65,12 +65,14 @@ public partial class Varaushallinta : ContentPage
             {
                 VarausID = Convert.ToInt32(selectedItem.Row["varaus_id"]);
 
-                VarausEntry.Text = selectedItem.Row["varattu_pvm"].ToString(); 
-                VahvistuspvmEntry.Text = selectedItem.Row["vahvistus_pvm"].ToString(); 
-                VarausAlkupvmEntry.Text = selectedItem.Row["varattu_alkupvm"].ToString(); 
-                VarausLoppupvmEntry.Text = selectedItem.Row["varattu_loppupvm"].ToString(); 
-                AsiakasIDEntry.Text = selectedItem.Row["asiakas_id"].ToString(); 
-                MokkiIDEntry.Text = selectedItem.Row["mokki_id"].ToString(); 
+                
+                VarausEntry.Text = ((DateTime)selectedItem.Row["varattu_pvm"]).ToString("yyyy-MM-dd HH-mm-ss");
+                VahvistuspvmEntry.Text = ((DateTime)selectedItem.Row["vahvistus_pvm"]).ToString("yyyy-MM-dd HH-mm-ss");
+                VarausAlkupvmEntry.Text = ((DateTime)selectedItem.Row["varattu_alkupvm"]).ToString("yyyy-MM-dd HH-mm-ss");
+                VarausLoppupvmEntry.Text = ((DateTime)selectedItem.Row["varattu_loppupvm"]).ToString("yyyy-MM-dd HH-mm-ss");
+
+                AsiakasIDEntry.Text = selectedItem.Row["asiakas_id"].ToString();
+                MokkiIDEntry.Text = selectedItem.Row["mokki_id"].ToString();
             }
         }
     }
