@@ -60,7 +60,7 @@
 
               <!--Varauksen  entry ja label-->
             <Label Text="Varauksen tekopäivä" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="VarausEntry" Placeholder="Palvelu" Grid.Column="1" Grid.Row="4"></Entry>
+            <Entry x:Name="VarausEntry" Placeholder="2020-12-12" Grid.Column="1" Grid.Row="4"></Entry>
             <!--Yleinen hakupalkki-->
             <SearchBar x:Name="VarausHaku" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="VarausHaku_SearchButtonPressed"></SearchBar>
             
@@ -152,17 +152,17 @@
 
             <!--Vahvistus_pvm label ja entry kenttä-->
             <Label Text="Vahvistus pvm" Grid.Column="0" Grid.Row="5" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="VahvistuspvmEntry" Placeholder="Kuvaus" Grid.Column="1" Grid.Row="5"></Entry>
+            <Entry x:Name="VahvistuspvmEntry" Placeholder="2020-12-12" Grid.Column="1" Grid.Row="5"></Entry>
           
             <!--Varattu alkupäivä label ja entrykenttä-->
             <Label Text="Varauksen alku pvm" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="VarausAlkupvmEntry" Placeholder="12.12.2020" Grid.Column="1" Grid.Row="6"></Entry>
+            <Entry x:Name="VarausAlkupvmEntry" Placeholder="2020-12-12" Grid.Column="1" Grid.Row="6"></Entry>
             
             
 
             <!--Varauksen loppupäivä label ja entry kenttä-->
             <Label Text="Varauksen loppu pvm" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="VarausLoppupvmEntry" Placeholder="12.12.2020" Grid.Column="1" Grid.Row="7"></Entry>
+            <Entry x:Name="VarausLoppupvmEntry" Placeholder="2020-12-12" Grid.Column="1" Grid.Row="7"></Entry>
       
 
             <!--Asiakas label ja etry kenttä-->
