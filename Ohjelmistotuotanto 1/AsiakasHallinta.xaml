@@ -19,11 +19,17 @@
                                SelectionMode="Single"
                                SelectionChanged="AsiakasCollectionView_SelectionChanged"
                                HeightRequest="300">
-                
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding Asiakkaat}" />
+                            <StackLayout>
+                                <Label Text="{Binding [etunimi]}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding [sukunimi]}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding [lahiosoite], StringFormat='Osoite: {0} '}" FontSize="12"/>
+                                <Label Text="{Binding [email], StringFormat='Sposti: {0} '}" FontSize="12"/>
+                                <Label Text="{Binding [puhelinnro], StringFormat='Puh: {0}'}" FontSize="12"/>
+                            </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -155,13 +161,13 @@
 
             <!--Lähiosoite -->
             <Label Text="Lähiosoite" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="LahiosoiteEntry" Placeholder="0" Grid.Column="1" Grid.Row="6"></Entry>
+            <Entry x:Name="LahiosoiteEntry" Placeholder="osoite 12" Grid.Column="1" Grid.Row="6"></Entry>
 
 
 
             <!--email-->
             <Label Text="Sähköposti" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="SähköpostiosoiteEntry" Placeholder="Kuvaus..." Grid.Column="1" Grid.Row="7"></Entry>
+            <Entry x:Name="SähköpostiosoiteEntry" Placeholder="esimerkki@gmail.com" Grid.Column="1" Grid.Row="7"></Entry>
 
             <!--Puhelinnumero-->
             <Label Text="Puhelinnumero" Grid.Column="0" Grid.Row="8" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
