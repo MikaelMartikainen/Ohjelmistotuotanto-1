@@ -160,7 +160,7 @@
 
             <!--alv-->
             <Label Text="alv" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="alvEntry" Placeholder="Kuvaus..." Grid.Column="1" Grid.Row="7"></Entry>
+            <Entry x:Name="alvEntry" Placeholder="24.5" Grid.Column="1" Grid.Row="7"></Entry>
 
 
             <!--AlueID-->
