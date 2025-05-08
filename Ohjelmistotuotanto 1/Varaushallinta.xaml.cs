@@ -278,16 +278,6 @@ public partial class Varaushallinta : ContentPage
         }
     }
 
-    private void hakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var selectedItem = hakuvalitsija.SelectedItem as string;
-        
-        if (!string.IsNullOrEmpty(selectedItem))
-        {
-            VarausHaku_SearchButtonPressed(null, null);
-        }
-    }
-
     private async void VarausHaku_SearchButtonPressed(object sender, EventArgs e)
     {
         var haku = new Dictionary<string, string>

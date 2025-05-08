@@ -247,16 +247,11 @@
             <!-- Valitsee minkä suhteen haetaan-->
             <Picker x:Name="hakuvalitsija"
                     Grid.Row="3" Grid.Column="2"
-                Title="Valitse minkä perusteella haetaan"
-                SelectedIndexChanged="hakuvalitsija_SelectedIndexChanged">
+                Title="Valitse minkä perusteella haetaan">
 
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
-                    <x:String>Varauksen teko pvm</x:String>
-                    <x:String>Vahvistus pvm</x:String>
-                    <x:String>Varauksen alku pvm</x:String>
-                    <x:String>Varauksen loppu pvm</x:String>
-                    <x:String>Asiakas ID</x:String>
+                        <x:String>Asiakas ID</x:String>
                     <x:String>Mökki ID</x:String>
                 </x:Array>
                 </Picker.ItemsSource>
