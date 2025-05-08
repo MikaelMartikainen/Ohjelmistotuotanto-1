@@ -81,7 +81,7 @@
                     Clicked="OnMajoittumisetAlueittainClicked"/>
 
             <Button Grid.Row="3" Grid.Column="1"
-                    Text="Ostettujen palvelujen raportointi"
+                    Text="Lisäpalvelujen raportointi"
                     BackgroundColor="#333"
                     TextColor="White"
                     CornerRadius="10"
