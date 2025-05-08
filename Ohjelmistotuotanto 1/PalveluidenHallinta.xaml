@@ -6,30 +6,34 @@
     <StackLayout>
 
         <Border Stroke="DarkGray"
-                   StrokeThickness="1"
-                   StrokeShape="RoundRectangle 8"
-                   Padding="5"
-                   Margin="0,0,0,20"
-                   Grid.Column="0"
-                   Grid.Row="0"
-                   Grid.RowSpan="4"
-                   Grid.ColumnSpan="6">
-            <!--Näyttää kiinnityn Palvelu SQL Taulukon-->
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 8"
+                Padding="5"
+                Margin="0,0,0,20"
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="4"
+                Grid.ColumnSpan="6">
+            <!-- Näyttää kiinnityn Palvelu SQL Taulukon -->
             <CollectionView x:Name="PalveluCollectionView"
-                               SelectionMode="Single"
-                               SelectionChanged="PalveluCollectionView_SelectionChanged"
-                               HeightRequest="300">
-
+                            SelectionMode="Single"
+                            SelectionChanged="PalveluCollectionView_SelectionChanged"
+                            HeightRequest="300">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding Palvelut}" />
+                            <StackLayout>
+                                <Label Text="{Binding [nimi]}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding [kuvaus]}" FontSize="14"/>
+                                <Label Text="{Binding [hinta], StringFormat='Hinta: {0} €'}" FontSize="12"/>
+                                <Label Text="{Binding [alv], StringFormat='ALV: {0} %'}" FontSize="12"/>
+                                <Label Text="{Binding [alue_id], StringFormat='Alue ID: {0}'}" FontSize="12"/>
+                            </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Border>
-
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -40,7 +44,6 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="6*" />
-
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -58,149 +61,122 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-             <!--Palvelun nimi-->
-            <Label Text="Palvelun nimi" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="PalveluEntry" Placeholder="Palvelu" Grid.Column="1" Grid.Row="4"></Entry>
-            
-            <!--Yleinen hakunappi-->
-            <SearchBar x:Name="Palveluhaku" Grid.Column="2" Grid.Row="4 " SearchButtonPressed="Palveluhaku_SearchButtonPressed_1"></SearchBar>
-            
-            <!--Nappi joka Lisää uuden palvelun -->
+            <!-- Palvelun nimi -->
+            <Label Text="Palvelun nimi" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Entry x:Name="PalveluEntry" Placeholder="Palvelu" Grid.Column="1" Grid.Row="4"/>
+
+            <!-- Hakupalkki -->
+            <SearchBar x:Name="Palveluhaku" Grid.Column="2" Grid.Row="4" SearchButtonPressed="Palveluhaku_SearchButtonPressed_1"/>
+
+            <!-- Lisää -->
             <Button x:Name="LisaaPalveluNappi" Text="Lisää" Grid.Column="3" Grid.Row="4" Clicked="LisaaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2">
-                <!--tekee hienoja asioita kun nappia painetaan-->
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                               Value="1" />
+                                    <Setter Property="Scale" Value="1"/>
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Pressed">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                               Value="0.9" />
-                                    <Setter Property="Opacity"
-                                   Value="0.9"
-                                     />
+                                    <Setter Property="Scale" Value="0.9"/>
+                                    <Setter Property="Opacity" Value="0.9"/>
                                 </VisualState.Setters>
                             </VisualState>
-                            <VisualState x:Name="PointerOver" />
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
-            
-            <!--Nappi joka muokkaa valittua palvelua-->
-            <Button x:Name="MuokkaaPalveluNappi" Text="Muokkaa" Grid.Column="4" Grid.Row="4" Clicked="MuokkaaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2" >
-                <!--tekee hienoja asioita kun nappia painetaan-->
+
+            <!-- Muokkaa -->
+            <Button x:Name="MuokkaaPalveluNappi" Text="Muokkaa" Grid.Column="4" Grid.Row="4" Clicked="MuokkaaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                               Value="1" />
+                                    <Setter Property="Scale" Value="1"/>
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Pressed">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                               Value="0.9" />
-                                    <Setter Property="Opacity"
-                                   Value="0.9"
-                                     />
+                                    <Setter Property="Scale" Value="0.9"/>
+                                    <Setter Property="Opacity" Value="0.9"/>
                                 </VisualState.Setters>
                             </VisualState>
-                            <VisualState x:Name="PointerOver" />
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
-            <!--Nappi joka poistaa palvelun-->
-            <Button x:Name="PoistaPalveluNappi" Text ="Poista" Grid.Column="5" Grid.Row="4" Clicked="PoistaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2">
-                <!--tekee hienoja asioita kun nappia painetaan-->
+
+            <!-- Poista -->
+            <Button x:Name="PoistaPalveluNappi" Text="Poista" Grid.Column="5" Grid.Row="4" Clicked="PoistaPalveluNappi_Clicked" BorderColor="Black" BorderWidth="2">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                               Value="1" />
-                                    <Setter Property="Opacity"
-                                            Value="1"
-                                                   />
+                                    <Setter Property="Scale" Value="1"/>
+                                    <Setter Property="Opacity" Value="1"/>
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Pressed">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                               Value="0.9"
-                                   />
-                                    <Setter Property="Opacity"
-                                   Value="0.9"
-                                     />
+                                    <Setter Property="Scale" Value="0.9"/>
+                                    <Setter Property="Opacity" Value="0.9"/>
                                 </VisualState.Setters>
                             </VisualState>
-                            <VisualState x:Name="PointerOver" />
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </Button>
 
-            <!--Kuvaus-->
-            <Label Text="Kuvaus" Grid.Column="0" Grid.Row="5" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="KuvausEntry" Placeholder="Kuvaus" Grid.Column="1" Grid.Row="5"></Entry>
+            <!-- Kuvaus -->
+            <Label Text="Kuvaus" Grid.Column="0" Grid.Row="5" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Entry x:Name="KuvausEntry" Placeholder="Kuvaus" Grid.Column="1" Grid.Row="5"/>
 
-            <!--Hinta -->
-            <Label Text="Hinta" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="HintaEntry" Placeholder="0" Grid.Column="1" Grid.Row="6"></Entry>
+            <!-- Hinta -->
+            <Label Text="Hinta" Grid.Column="0" Grid.Row="6" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Entry x:Name="HintaEntry" Placeholder="0" Grid.Column="1" Grid.Row="6"/>
 
+            <!-- alv -->
+            <Label Text="alv" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Entry x:Name="alvEntry" Placeholder="24" Grid.Column="1" Grid.Row="7"/>
 
-            <!--alv-->
-            <Label Text="alv" Grid.Column="0" Grid.Row="7" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="alvEntry" Placeholder="24.5" Grid.Column="1" Grid.Row="7"></Entry>
+            <!-- AlueID -->
+            <Label Text="AlueID" Grid.Column="0" Grid.Row="11" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Entry x:Name="AlueIDEntry" Placeholder="1" Grid.Column="1" Grid.Row="11"/>
 
-
-            <!--AlueID-->
-            <Label Text="AlueID" Grid.Column="0" Grid.Row="11" VerticalOptions="Center" HorizontalOptions="Center" ></Label>
-            <Entry x:Name="AlueIDEntry" Placeholder="1" Grid.Column="1" Grid.Row="11"></Entry>
-
-            
+            <!-- AlueCollectionView -->
             <Border Stroke="DarkGray"
-           StrokeThickness="1"
-               StrokeShape="RoundRectangle 8"
-               Padding="5"
-                Margin="0,0,0,20"
-               Grid.Column="0"
-               Grid.Row="12"
-               Grid.RowSpan="2"
-               Grid.ColumnSpan="3">
-
-             <!--Näyttää alue SQL taulukon, jotta alue id voidaan valita-->
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="5"
+                    Margin="0,0,0,20"
+                    Grid.Column="0"
+                    Grid.Row="12"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="3">
                 <CollectionView x:Name="AlueCollectionView"
-                    SelectionMode="Single"
-                    SelectionChanged="AlueCollectionView_SelectionChanged"
-                    HeightRequest="300">
-                    
+                SelectionMode="Single"
+                SelectionChanged="AlueCollectionView_SelectionChanged"
+                HeightRequest="300">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                                <Label Text="{Binding Alue}" />
+                            <Frame BorderColor="White" Padding="10" Margin="5" CornerRadius="5" BackgroundColor="Black">
+                                <Label Text="{Binding [nimi]}" TextColor="White" FontSize="14"/>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Border>
 
-
-            <!-- Valitsee minkä suhteen haetaan-->
+            <!-- Hakukriteeri Picker -->
             <Picker x:Name="hakuvalitsija"
                     Grid.Row="3" Grid.Column="2"
-                Title="Valitse minkä perusteella haetaan"
-                SelectedIndexChanged="hakuvalitsija_SelectedIndexChanged_1">
-
+                    Title="Valitse minkä perusteella haetaan"
+                    SelectedIndexChanged="hakuvalitsija_SelectedIndexChanged_1">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Nimi</x:String>
@@ -211,8 +187,6 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-
-
         </Grid>
-        </StackLayout>
+    </StackLayout>
 </ContentPage>

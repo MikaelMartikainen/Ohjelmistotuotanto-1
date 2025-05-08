@@ -12,7 +12,13 @@ public partial class Varaushallinta : ContentPage
     private DataTable PalveluData;
     private int VarausID = -1;
 
-        
+    // Strings to store input values
+    string varattuPvm;
+    string vahvistusPvm;
+    string varattuAlkuPvm;
+    string varattuLoppuPvm;
+    string asiakasId;
+    string mokkiId;
 
     public Varaushallinta()
 	{
@@ -43,7 +49,7 @@ public partial class Varaushallinta : ContentPage
 
         catch (Exception ex)
         {
-            await DisplayAlert("Virhe", $"Tietojen lataus ep‰onnistui: {ex.Message}", "OK");
+            await DisplayAlert("Virhe", $"Tietojen lataus ep√§onnistui: {ex.Message}", "OK");
         }
     }
 
@@ -52,61 +58,79 @@ public partial class Varaushallinta : ContentPage
 
     private void VarausCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var selectedItem = e.CurrentSelection[0] as DataRowView;    //kun varaus valitaan sen tiedot tulevat n‰kyviin
-        if (selectedItem != null)
+        if (e.CurrentSelection.Count > 0)
         {
-            VarausID = Convert.ToInt32(selectedItem.Row["varaus_id"]);
+            var selectedItem = e.CurrentSelection[0] as DataRowView;    //kun varaus valitaan sen tiedot tulevat n√§kyviin
+            if (selectedItem != null)
+            {
+                VarausID = Convert.ToInt32(selectedItem.Row["varaus_id"]);
 
-            VarausEntry.Text = selectedItem.Row["varattu_pvm"].ToString(); 
-            VahvistuspvmEntry.Text = selectedItem.Row["vahvistus_pvm"].ToString(); 
-            VarausAlkupvmEntry.Text = selectedItem.Row["varattu_alkupvm"].ToString(); 
-            VarausLoppupvmEntry.Text = selectedItem.Row["varattu_loppupvm"].ToString(); 
-            AsiakasIDEntry.Text = selectedItem.Row["asiakas_id"].ToString(); 
-            MokkiIDEntry.Text = selectedItem.Row["mokki_id"].ToString(); 
+                VarausEntry.Text = selectedItem.Row["varattu_pvm"].ToString(); 
+                VahvistuspvmEntry.Text = selectedItem.Row["vahvistus_pvm"].ToString(); 
+                VarausAlkupvmEntry.Text = selectedItem.Row["varattu_alkupvm"].ToString(); 
+                VarausLoppupvmEntry.Text = selectedItem.Row["varattu_loppupvm"].ToString(); 
+                AsiakasIDEntry.Text = selectedItem.Row["asiakas_id"].ToString(); 
+                MokkiIDEntry.Text = selectedItem.Row["mokki_id"].ToString(); 
+            }
         }
     }
 
 
     private async void LisaaVarausNappi_Clicked(object sender, EventArgs e)
     {
-        // varmistetaan ett‰ on t‰ydet tiedot 
-        if (string.IsNullOrWhiteSpace(VarausEntry.Text) ||
-            string.IsNullOrWhiteSpace(VahvistuspvmEntry.Text) ||
-            string.IsNullOrWhiteSpace(VarausAlkupvmEntry.Text) ||
-            string.IsNullOrWhiteSpace(VarausLoppupvmEntry.Text) ||
-            string.IsNullOrWhiteSpace(AsiakasIDEntry.Text) ||
-            string.IsNullOrWhiteSpace(MokkiIDEntry.Text))
+        // Get values from entry fields
+        varattuPvm = VarausEntry.Text;
+        vahvistusPvm = VahvistuspvmEntry.Text;
+        varattuAlkuPvm = VarausAlkupvmEntry.Text;
+        varattuLoppuPvm = VarausLoppupvmEntry.Text;
+        asiakasId = AsiakasIDEntry.Text;
+        mokkiId = MokkiIDEntry.Text;
+        
+        // Validate that all fields are filled
+        if (string.IsNullOrWhiteSpace(varattuPvm) ||
+            string.IsNullOrWhiteSpace(vahvistusPvm) ||
+            string.IsNullOrWhiteSpace(varattuAlkuPvm) ||
+            string.IsNullOrWhiteSpace(varattuLoppuPvm) ||
+            string.IsNullOrWhiteSpace(asiakasId) ||
+            string.IsNullOrWhiteSpace(mokkiId))
         {
-            await DisplayAlert("Huomio", "Kaikki kent‰t t‰ytyy t‰ytt‰‰.", "OK");
+            await DisplayAlert("Huomio", "Kaikki kent√§t t√§ytyy t√§ytt√§√§.", "OK");
             return;
         }
 
         try
         {
-                var tiedot = new Dictionary<string, object>
+            // Create parameter dictionary for database query
+            var tiedot = new Dictionary<string, object>
             {
-                { "@varattu_pvm", VarausEntry.Text },
-                { "@vahvistus_pvm", VahvistuspvmEntry.Text },
-                { "@varattu_alkupvm", VarausAlkupvmEntry.Text },
-                { "@varattu_loppupvm", VarausLoppupvmEntry.Text },
-                { "@asiakas_id", AsiakasIDEntry.Text },
-                { "@mokki_id", MokkiIDEntry.Text }
+                { "@varattu_pvm", varattuPvm },
+                { "@vahvistus_pvm", vahvistusPvm },
+                { "@varattu_alkupvm", varattuAlkuPvm },
+                { "@varattu_loppupvm", varattuLoppuPvm },
+                { "@asiakas_id", asiakasId },
+                { "@mokki_id", mokkiId }
             };
 
-            // SQL
-            await dbHelper.ExecuteNonQueryAsync(
+            // Execute SQL query to insert new reservation
+            int affectedRows = await dbHelper.ExecuteNonQueryAsync(
                 "INSERT INTO `vn`.`varaus` (`varattu_pvm`, `vahvistus_pvm`, `varattu_alkupvm`, `varattu_loppupvm`, `asiakas_id`, `mokki_id`) " +
                 "VALUES (@varattu_pvm, @vahvistus_pvm, @varattu_alkupvm, @varattu_loppupvm, @asiakas_id, @mokki_id)",
                 tiedot);
 
-            
-            LoadVarausData();
-
-            await DisplayAlert("Onnistui", "Varaus lis‰tty onnistuneesti", "OK");
+            if (affectedRows > 0)
+            {
+                // Reload data and show success message
+                LoadVarausData();
+                await DisplayAlert("Onnistui", "Varaus lis√§tty onnistuneesti", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Virhe", "Varauksen lis√§√§minen ep√§onnistui", "OK");
+            }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Virhe", $"Varaus ep‰onnistui: {ex.Message}", "OK");
+            await DisplayAlert("Virhe", $"Varaus ep√§onnistui: {ex.Message}", "OK");
         }
     }
 
@@ -125,13 +149,13 @@ public partial class Varaushallinta : ContentPage
         string.IsNullOrWhiteSpace(AsiakasIDEntry.Text) ||
         string.IsNullOrWhiteSpace(MokkiIDEntry.Text))
         {
-            await DisplayAlert("Huomio", "T‰yt‰ kaikki kent‰t ennen tallentamista", "OK");
+            await DisplayAlert("Huomio", "T√§yt√§ kaikki kent√§t ennen tallentamista", "OK");
             return;
         }
 
         try
         {
-            // Create a dictionary with the new values to update
+            // Create parameter dictionary for database query
             var tiedot = new Dictionary<string, object>
         {
             { "@varattu_pvm", VarausEntry.Text },
@@ -145,7 +169,7 @@ public partial class Varaushallinta : ContentPage
 
 
 
-            await dbHelper.ExecuteNonQueryAsync(
+            int affectedRows = await dbHelper.ExecuteNonQueryAsync(
             "UPDATE `vn`.`varaus` " +
             "SET varattu_pvm = @varattu_pvm, " +
             "vahvistus_pvm = @vahvistus_pvm, " +
@@ -155,16 +179,21 @@ public partial class Varaushallinta : ContentPage
             "mokki_id = @mokki_id " +
             "WHERE varaus_id = @varaus_id", tiedot);
 
-            // Show a success message
-            await DisplayAlert("Onnistui", "Varaus p‰ivitetty onnistuneesti", "OK");
-
-            // Optionally, refresh the data to show the updated reservation
-            LoadVarausData();
+            if (affectedRows > 0)
+            {
+                // Show success message and reload data
+                await DisplayAlert("Onnistui", "Varaus p√§ivitetty onnistuneesti", "OK");
+                LoadVarausData();
+            }
+            else
+            {
+                await DisplayAlert("Virhe", "Varauksen p√§ivitys ep√§onnistui", "OK");
+            }
         }
         catch (Exception ex)
         {
             // Show error message if something goes wrong
-            await DisplayAlert("Virhe", $"P‰ivitys ep‰onnistui: {ex.Message}", "OK");
+            await DisplayAlert("Virhe", $"P√§ivitys ep√§onnistui: {ex.Message}", "OK");
         }
     }
 
@@ -176,19 +205,28 @@ public partial class Varaushallinta : ContentPage
             return;
         }
 
-        bool confirm = await DisplayAlert("Varmista", $"Haluatko varmasti poistaa varauksen {VarausEntry.Text}?", "Kyll‰", "Ei");
-        if (confirm)
+        bool confirm = await DisplayAlert("Varmista", $"Haluatko varmasti poistaa varauksen {VarausID}?", "Kyll√§", "Ei");
+        if (!confirm) return;
+
+        try
         {
-            try
+            // Create parameter dictionary for database query
+            var tiedot = new Dictionary<string, object>
             {
-                var tiedot = new Dictionary<string, object>
-                {
-                    { "@varaus_id", VarausID }
-                };
+                { "@varaus_id", VarausID }
+            };
 
-                await dbHelper.ExecuteNonQueryAsync("DELETE FROM `vn`.`varaus` WHERE varaus_id = @varaus_id", tiedot);
+            // Execute SQL query to delete reservation
+            int affectedRows = await dbHelper.ExecuteNonQueryAsync(
+                "DELETE FROM `vn`.`varaus` WHERE varaus_id = @varaus_id", 
+                tiedot);
+
+            if (affectedRows > 0)
+            {
+                // Show success message and clear fields
                 await DisplayAlert("Onnistui", "Varaus poistettu onnistuneesti", "OK");
-
+                
+                // Clear entry fields
                 VarausEntry.Text = string.Empty;
                 VahvistuspvmEntry.Text = string.Empty;
                 VarausAlkupvmEntry.Text = string.Empty;
@@ -197,20 +235,23 @@ public partial class Varaushallinta : ContentPage
                 MokkiIDEntry.Text = string.Empty;
                 VarausID = -1;
 
-
+                // Reload data
                 LoadVarausData();
             }
-            catch (Exception ex)
+            else
             {
-                await DisplayAlert("Virhe", $"Poistaminen ep‰onnistui: {ex.Message}", "OK");
+                await DisplayAlert("Virhe", "Varauksen poistaminen ep√§onnistui", "OK");
             }
         }
-
+        catch (Exception ex)
+        {
+            await DisplayAlert("Virhe", $"Poistaminen ep√§onnistui: {ex.Message}", "OK");
+        }
     }
 
     private void AsiakasCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-            //kun asiakas valitaan, ID tuleee n‰kyvin
+            //kun asiakas valitaan, ID tuleee n√§kyvin
         if (e.CurrentSelection.Count > 0)
         {
             var selectedItem = e.CurrentSelection[0] as DataRowView;
@@ -237,45 +278,24 @@ public partial class Varaushallinta : ContentPage
 
     private void hakuvalitsija_SelectedIndexChanged(object sender, EventArgs e)
     {
-        var selectedIndex = hakuvalitsija.SelectedIndex;    //muuttuja valinnalle
-        string searchField = string.Empty;
-
-        switch (selectedIndex)    
+        var selectedItem = hakuvalitsija.SelectedItem as string;
+        
+        if (!string.IsNullOrEmpty(selectedItem))
         {
-            case 0: 
-                searchField = "varattu_pvm";
-                break;
-            case 1: 
-                searchField = "vahvistus_pvm";
-                break;
-            case 2: 
-                searchField = "varattu_alkupvm";
-                break;
-            case 3: 
-                searchField = "varattu_loppupvm";
-                break;
-            case 4: 
-                searchField = "asiakas_id";
-                break;
-            case 5: 
-                searchField = "mokki_id";
-                break;
-            default:
-                break;
+            VarausHaku_SearchButtonPressed(null, null);
         }
-
     }
 
     private async void VarausHaku_SearchButtonPressed(object sender, EventArgs e)
     {
         var haku = new Dictionary<string, string>
         {
-            { "Varaus p‰iv‰", "varattu_pvm" },
-            { "Vahvistusp‰iv‰m‰‰r‰", "vahvistus_pvm" },
+            { "Varaus p√§iv√§", "varattu_pvm" },
+            { "Vahvistusp√§iv√§m√§√§r√§", "vahvistus_pvm" },
             { "Varauksen alku", "varattu_alkupvm" },
             { "Varauksen loppu", "varattu_loppupvm" },
             { "Asiakas ID", "asiakas_id" },
-            { "Mˆkki ID", "mokki_id" }
+            { "M√∂kki ID", "mokki_id" }
         };
 
         string searchText = VarausHaku.Text;
@@ -320,7 +340,7 @@ public partial class Varaushallinta : ContentPage
         catch (Exception ex)
         {
             // Show an error if the query failed
-            await DisplayAlert("Virhe", $"Haku ep‰onnistui: {ex.Message}", "OK");
+            await DisplayAlert("Virhe", $"Haku ep√§onnistui: {ex.Message}", "OK");
         }
 
 
