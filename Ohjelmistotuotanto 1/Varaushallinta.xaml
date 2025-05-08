@@ -23,7 +23,14 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                            <Label Text="{Binding Varaukset}" />
+                            <StackLayout>
+                                <Label Text="{Binding [varaus_id], StringFormat='Varaus ID: {0}'}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding [varattu_pvm], StringFormat='Varattu: {0}'}" FontSize="14"/>
+                                <Label Text="{Binding [varattu_alkupvm], StringFormat='Alkaa: {0}'}" FontSize="14"/>
+                                <Label Text="{Binding [varattu_loppupvm], StringFormat='Loppuu: {0}'}" FontSize="14"/>
+                                <Label Text="{Binding [asiakas_id], StringFormat='Asiakas ID: {0}'}" FontSize="12"/>
+                                <Label Text="{Binding [mokki_id], StringFormat='Mökki ID: {0}'}" FontSize="12"/>
+                            </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -188,7 +195,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                                <Label Text="{Binding Asiakas}" />
+                                <StackLayout>
+                                    <Label Text="{Binding [asiakas_id], StringFormat='Asiakas ID: {0}'}" FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding [etunimi], StringFormat='Etunimi: {0}'}" FontSize="14"/>
+                                    <Label Text="{Binding [sukunimi], StringFormat='Sukunimi: {0}'}" FontSize="14"/>
+                                    <Label Text="{Binding [email], StringFormat='Email: {0}'}" FontSize="12"/>
+                                    <Label Text="{Binding [puhelinnro], StringFormat='Puhelin: {0}'}" FontSize="12"/>
+                                </StackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -218,7 +231,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="5">
-                                <Label Text="{Binding Mokki}" />
+                                <StackLayout>
+                                    <Label Text="{Binding [mokki_id], StringFormat='Mökki ID: {0}'}" FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding [mokkinimi], StringFormat='Nimi: {0}'}" FontSize="14"/>
+                                    <Label Text="{Binding [katuosoite], StringFormat='Osoite: {0}'}" FontSize="14"/>
+                                    <Label Text="{Binding [kuvaus], StringFormat='Kuvaus: {0}'}" FontSize="12"/>
+                                    <Label Text="{Binding [alue_id], StringFormat='Alue ID: {0}'}" FontSize="12"/>
+                                </StackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
