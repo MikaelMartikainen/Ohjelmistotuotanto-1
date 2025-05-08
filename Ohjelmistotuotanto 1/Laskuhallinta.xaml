@@ -80,15 +80,21 @@
                    TextColor="White"
                    VerticalOptions="Center" />
             <!-- Poistettu aiemmat "Valitse laskutustapa" nappiryhmät, ja jätetty vain tulostustapa -->
-            <RadioButton x:Name="TulostusPaperilaskuRadio" Content="Paperilasku" IsChecked="True" TextColor="White" />
-            <RadioButton x:Name="TulostusSahkopostilaskuRadio" Content="Sähköpostilasku" TextColor="White" />
+            <RadioButton x:Name="TulostusPaperilaskuRadio" 
+                        Content="Paperilasku" 
+                        TextColor="White" 
+                        IsChecked="True" />
+            <RadioButton x:Name="TulostusSahkopostilaskuRadio" 
+                        Content="Sähköpostilasku" 
+                        TextColor="White" />
             <Button Text="Tulosta Lasku"
                     Clicked="TulostaLaskuButton_Clicked"
-                    BackgroundColor="DarkGray"
+                    BackgroundColor="#007BFF"
                     TextColor="White"
-                    BorderColor="Black"
-                    BorderWidth="2"
-                    CornerRadius="10"
+                    FontAttributes="Bold"
+                    BorderColor="#0069D9"
+                    BorderWidth="1"
+                    CornerRadius="6"
                     HorizontalOptions="Start"
                     WidthRequest="150"/>
         </StackLayout>
@@ -99,37 +105,45 @@
             <Button x:Name="PoistaLaskuButton" 
                     Text="Poista Lasku"
                     Clicked="PoistaLaskuButton_Clicked"
-                    BackgroundColor="DarkGray"
+                    BackgroundColor="#DC3545"
                     TextColor="White"
-                    BorderColor="Black"
-                    BorderWidth="2"
+                    FontAttributes="Bold"
+                    BorderColor="#C82333"
+                    BorderWidth="1"
+                    CornerRadius="6"
                     IsEnabled="False" />
 
             <!-- Merkitse maksetuksi -nappi -->
             <Button x:Name="MerkitseMaksetuksiButton" 
                     Text="Merkitse Maksetuksi"
                     Clicked="MerkitseMaksetuksiButton_Clicked"
-                    BackgroundColor="DarkGray"
-                    TextColor="White" 
-                    BorderColor="Black"
-                    BorderWidth="2"
+                    BackgroundColor="#28A745"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BorderColor="#218838"
+                    BorderWidth="1"
+                    CornerRadius="6"
                     IsEnabled="False" />
             
             <!-- Luo PDF -nappi -->
             <Button Text="Luo PDF"
                     Clicked="LuoPdfButton_Clicked"
-                    BackgroundColor="DarkGray"
+                    BackgroundColor="#17A2B8"
                     TextColor="White"
-                    BorderColor="Black"
-                    BorderWidth="2" />
+                    FontAttributes="Bold"
+                    BorderColor="#138496"
+                    BorderWidth="1"
+                    CornerRadius="6" />
             
             <!-- Luo uusi lasku -nappi -->
             <Button Text="Luo Uusi Lasku"
                     Clicked="LisaaLaskuButton_Clicked"
-                    BackgroundColor="DarkGray"
-                    TextColor="White"
-                    BorderColor="Black"
-                    BorderWidth="2" />
+                    BackgroundColor="#FFC107"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    BorderColor="#E0A800"
+                    BorderWidth="1"
+                    CornerRadius="6" />
         </StackLayout>
 
     </StackLayout>
