@@ -9,6 +9,9 @@ namespace Ohjelmistotuotanto_1
 {
     public partial class Laskuhallinta : ContentPage
     {
+        // Direct database access
+        private DatabaseHelper dbHelper;
+        
         // Services for database operations
         private LaskuService _laskuService;
         
@@ -17,12 +20,17 @@ namespace Ohjelmistotuotanto_1
         
         // List of all invoices
         private List<Lasku> _laskut;
+        
+        // DataTable for direct database access
+        private DataTable laskuData;
+        private int laskuID = -1;
 
         public Laskuhallinta()
         {
             InitializeComponent();
             
-            // Initialize service
+            // Initialize database helper and service
+            dbHelper = new DatabaseHelper();
             _laskuService = new LaskuService();
             
             // Load invoices when page appears
@@ -35,9 +43,8 @@ namespace Ohjelmistotuotanto_1
             // Show loading indicator or disable UI during loading
             try
             {
-                // Load invoices from database
-                _laskut = await _laskuService.GetLaskutAsync();
-                LaskuCollectionView.ItemsSource = _laskut;
+                // Load invoices from database - using both the service and direct access
+                await LoadLaskuData();
                 
                 // Reset selection
                 LaskuCollectionView.SelectedItem = null;
@@ -48,8 +55,66 @@ namespace Ohjelmistotuotanto_1
                 await DisplayAlert("Virhe", $"Laskujen lataaminen epäonnistui: {ex.Message}", "OK");
             }
         }
+        
+        // Load invoice data directly from database
+        private async Task LoadLaskuData()
+        {
+            try
+            {
+                // Query to get invoice data with related information
+                string query = @"
+                    SELECT l.lasku_id, l.varaus_id, l.summa, l.alv, l.maksettu,
+                           a.etunimi, a.sukunimi, 
+                           m.mokkinimi,
+                           v.varattu_alkupvm, v.varattu_loppupvm
+                    FROM lasku l
+                    JOIN varaus v ON l.varaus_id = v.varaus_id
+                    JOIN asiakas a ON v.asiakas_id = a.asiakas_id
+                    JOIN mokki m ON v.mokki_id = m.mokki_id
+                    ORDER BY l.lasku_id DESC";
+                
+                // Get data directly
+                laskuData = await dbHelper.GetDataAsync(query);
+                
+                // Convert to Lasku objects for the view
+                _laskut = ConvertDataTableToLaskuList(laskuData);
+                
+                // Set the item source
+                LaskuCollectionView.ItemsSource = _laskut;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error loading invoice data: {ex.Message}");
+                throw;
+            }
+        }
+        
+        // Convert DataTable to List<Lasku>
+        private List<Lasku> ConvertDataTableToLaskuList(DataTable dt)
+        {
+            List<Lasku> laskut = new List<Lasku>();
+            
+            foreach (DataRow row in dt.Rows)
+            {
+                Lasku lasku = new Lasku
+                {
+                    LaskuId = Convert.ToInt32(row["lasku_id"]),
+                    VarausId = Convert.ToInt32(row["varaus_id"]),
+                    Summa = Convert.ToDouble(row["summa"]),
+                    Alv = Convert.ToDouble(row["alv"]),
+                    Maksettu = Convert.ToBoolean(row["maksettu"]),
+                    AsiakkaanNimi = $"{row["etunimi"]} {row["sukunimi"]}",
+                    MokinNimi = row["mokkinimi"].ToString(),
+                    AlkuPvm = Convert.ToDateTime(row["varattu_alkupvm"]),
+                    LoppuPvm = Convert.ToDateTime(row["varattu_loppupvm"]),
+                };
+                laskut.Add(lasku);
+            }
+            
+            return laskut;
+        }
 
-        // Tähn koodia kun valitaan lasku listalta (xaml puolella LaskuCollectionView) 
+        // Selection handler for invoice list
         private void LaskuCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Tarkistetaan, onko listalta valittu joku lasku
@@ -57,6 +122,7 @@ namespace Ohjelmistotuotanto_1
             {
                 // Get the selected invoice
                 _selectedLasku = (Lasku)LaskuCollectionView.SelectedItem;
+                laskuID = _selectedLasku.LaskuId;
                 
                 // Update UI with selected invoice details
                 UpdateInvoiceDetails(_selectedLasku);
@@ -71,6 +137,7 @@ namespace Ohjelmistotuotanto_1
             {
                 // No invoice selected
                 _selectedLasku = null;
+                laskuID = -1;
                 
                 // Hide details and disable buttons
                 UpdateUIState(false);
@@ -154,8 +221,20 @@ namespace Ohjelmistotuotanto_1
         {
             try
             {
-                // Get reservations without invoices
-                DataTable reservations = await _laskuService.GetReservationsWithoutInvoicesAsync();
+                // Direct database access for reservations without invoices
+                string query = @"
+                    SELECT v.varaus_id, a.etunimi, a.sukunimi, m.mokkinimi, 
+                           v.varattu_alkupvm, v.varattu_loppupvm,
+                           m.hinta AS mokki_hinta,
+                           DATEDIFF(v.varattu_loppupvm, v.varattu_alkupvm) AS nights
+                    FROM varaus v
+                    JOIN asiakas a ON v.asiakas_id = a.asiakas_id
+                    JOIN mokki m ON v.mokki_id = m.mokki_id
+                    LEFT JOIN lasku l ON v.varaus_id = l.varaus_id
+                    WHERE l.lasku_id IS NULL
+                    ORDER BY v.varattu_alkupvm DESC";
+                
+                DataTable reservations = await dbHelper.GetDataAsync(query);
                 
                 if (reservations.Rows.Count == 0)
                 {
@@ -192,21 +271,37 @@ namespace Ohjelmistotuotanto_1
                 double totalAmount = mokkiHinta * nights;
                 double alv = totalAmount * 0.24; // 24% VAT
                 
-                // Create invoice
-                int newInvoiceId = await _laskuService.CreateLaskuAsync(varausId, totalAmount, alv);
+                // Create invoice directly using the database
+                // Get next available invoice ID
+                string getMaxIdQuery = "SELECT COALESCE(MAX(lasku_id), 0) + 1 FROM lasku";
+                object maxIdResult = await dbHelper.ExecuteScalarAsync(getMaxIdQuery);
+                int newLaskuId = Convert.ToInt32(maxIdResult);
                 
-                // Reload invoices
-                _laskut = await _laskuService.GetLaskutAsync();
-                LaskuCollectionView.ItemsSource = _laskut;
+                // Insert new invoice
+                string insertQuery = "INSERT INTO lasku (lasku_id, varaus_id, summa, alv, maksettu) VALUES (@laskuId, @varausId, @summa, @alv, @maksettu)";
                 
-                // Select the new invoice
-                Lasku newInvoice = _laskut.FirstOrDefault(l => l.LaskuId == newInvoiceId);
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@laskuId", newLaskuId },
+                    { "@varausId", varausId },
+                    { "@summa", totalAmount },
+                    { "@alv", alv },
+                    { "@maksettu", false }
+                };
+                
+                await dbHelper.ExecuteNonQueryAsync(insertQuery, parameters);
+                
+                // Reload invoices data
+                await LoadLaskuData();
+                
+                // Find and select the new invoice
+                Lasku newInvoice = _laskut.FirstOrDefault(l => l.LaskuId == newLaskuId);
                 if (newInvoice != null)
                 {
                     LaskuCollectionView.SelectedItem = newInvoice;
                 }
                 
-                await DisplayAlert("Lasku Lisätty", $"Uusi lasku #{newInvoiceId} on lisätty varaukselle #{varausId}.", "OK");
+                await DisplayAlert("Lasku Lisätty", $"Uusi lasku #{newLaskuId} on lisätty varaukselle #{varausId}.", "OK");
             }
             catch (Exception ex)
             {
@@ -217,7 +312,7 @@ namespace Ohjelmistotuotanto_1
         // Mark invoice as paid
         private async void MerkitseMaksetuksiButton_Clicked(object sender, EventArgs e)
         {
-            if (_selectedLasku == null)
+            if (_selectedLasku == null || laskuID == -1)
             {
                 await DisplayAlert("Virhe", "Valitse lasku ensin.", "OK");
                 return;
@@ -233,19 +328,31 @@ namespace Ohjelmistotuotanto_1
                 if (!confirm)
                     return;
                 
-                // Mark as paid in database
-                await _laskuService.MarkAsPaidAsync(_selectedLasku.LaskuId);
+                // Mark as paid directly in database
+                string query = "UPDATE lasku SET maksettu = 1 WHERE lasku_id = @laskuId";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@laskuId", laskuID }
+                };
+                
+                await dbHelper.ExecuteNonQueryAsync(query, parameters);
                 
                 // Update UI
                 _selectedLasku.Maksettu = true;
                 DetailTila.Text = "Maksettu";
                 MerkitseMaksetuksiButton.IsEnabled = false;
                 
-                // Refresh collection view
-                LaskuCollectionView.ItemsSource = null;
-                LaskuCollectionView.ItemsSource = _laskut;
+                // Refresh data
+                await LoadLaskuData();
                 
-                await DisplayAlert("Merkitty Maksetuksi", $"Lasku #{_selectedLasku.LaskuId} on merkitty maksetuksi.", "OK");
+                // Find and select the updated invoice
+                Lasku updatedInvoice = _laskut.FirstOrDefault(l => l.LaskuId == laskuID);
+                if (updatedInvoice != null)
+                {
+                    LaskuCollectionView.SelectedItem = updatedInvoice;
+                }
+                
+                await DisplayAlert("Merkitty Maksetuksi", $"Lasku #{laskuID} on merkitty maksetuksi.", "OK");
             }
             catch (Exception ex)
             {
@@ -256,7 +363,7 @@ namespace Ohjelmistotuotanto_1
         // Laskun poistaminen -tapahtumankäsittelijä
         private async void PoistaLaskuButton_Clicked(object sender, EventArgs e)
         {
-            if (_selectedLasku == null)
+            if (_selectedLasku == null || laskuID == -1)
             {
                 await DisplayAlert("Virhe", "Valitse poistettava lasku.", "OK");
                 return;
@@ -266,22 +373,28 @@ namespace Ohjelmistotuotanto_1
             {
                 // Ask for confirmation
                 bool confirm = await DisplayAlert("Vahvista poisto", 
-                    $"Haluatko varmasti poistaa laskun #{_selectedLasku.LaskuId}?", 
+                    $"Haluatko varmasti poistaa laskun #{laskuID}?", 
                     "Poista", "Peruuta");
                 
                 if (!confirm)
                     return;
                 
-                // Delete from database
-                await _laskuService.DeleteLaskuAsync(_selectedLasku.LaskuId);
+                // Delete directly from database
+                string query = "DELETE FROM lasku WHERE lasku_id = @laskuId";
+                Dictionary<string, object> parameters = new Dictionary<string, object>
+                {
+                    { "@laskuId", laskuID }
+                };
                 
-                // Remove from list
-                _laskut.Remove(_selectedLasku);
+                await dbHelper.ExecuteNonQueryAsync(query, parameters);
                 
-                // Update UI
-                LaskuCollectionView.ItemsSource = null;
-                LaskuCollectionView.ItemsSource = _laskut;
+                // Reload data
+                await LoadLaskuData();
+                
+                // Reset selection and UI
                 LaskuCollectionView.SelectedItem = null;
+                _selectedLasku = null;
+                laskuID = -1;
                 
                 // Hide details and disable buttons
                 UpdateUIState(false);
